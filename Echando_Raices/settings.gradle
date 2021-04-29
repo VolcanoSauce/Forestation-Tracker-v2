@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Echando_Raices_App"
