@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
+                finish();
                 Toast.makeText(v.getContext(), "Sesión iniciada", Toast.LENGTH_SHORT).show();
             }
         });
