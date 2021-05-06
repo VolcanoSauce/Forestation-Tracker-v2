@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,9 +50,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new HomeFragment()).commit();
                 break;
-
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MapFragment()).commit();
+                break;
             case R.id.nav_version:
                 Toast.makeText(this, "0.1.0", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_exit:
+                logout();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -69,8 +75,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
    public void logout() {
-       // signout
-       // start activity Login
+       Intent intent = new Intent(this, LoginActivity.class);
+       startActivity(intent);
+       Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
        finish();
    }
 }
