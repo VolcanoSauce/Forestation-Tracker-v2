@@ -3,3 +3,6 @@
 ## Android App
 
 ## NodeJS Backend API
+npm install
+npm start
+(.env file required)
