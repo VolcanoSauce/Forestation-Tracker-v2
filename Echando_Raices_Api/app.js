@@ -1,13 +1,23 @@
 const express = require('express');
-// import mongoose (maybe)
 const app = express();
 
 require('dotenv').config();
 
 // Import routes
-//const pizzaRoute = require('./routes/pizza');
+const usersRoute = require('./routes/users');
 
-// Connect to DB
+// Connect to DB (Using MySQL Pooling instead)
+// const db = mysql.createConnection({
+//     host: process.env.HOST,
+//     user: process.env.USER,
+//     password: process.env.PASSWD,
+//     database: process.env.DB
+// });
+// db.connect(err => {
+//     if (err)
+//         throw err;
+//     console.log('DB Running id: ' + db.threadId);
+// });
 
 // Parse JSON content requests
 app.use(express.json());
@@ -30,7 +40,7 @@ app.use((req, res, next) => {
 });
 
 // Middlewares
-//app.use('/pizzas', pizzasRoute);
+app.use('/users', usersRoute);
 
 // Routes
 app.get('/', (req, res, next) => {
