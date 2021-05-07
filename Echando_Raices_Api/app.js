@@ -46,7 +46,7 @@ app.use('/areas', areasRoute);
 
 // Routes
 app.get('/', (req, res, next) => {
-    res.send('Bienvenido al API de Echando Raices!');
+    res.json({ message: 'Bienvenido al API de Echando Raices!' });
 });
 
 app.use((req, res, next) => {
