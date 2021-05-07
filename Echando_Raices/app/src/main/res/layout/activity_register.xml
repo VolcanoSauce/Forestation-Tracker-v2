@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="45dp"
-        android:src="@drawable/logo"
-        android:contentDescription="logo_echando_raices" />
+    tools:context=".RegisterActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,13 +17,12 @@
         android:layout_marginTop="45dp" />
 
     <EditText
-        android:id="@+id/et_loginEmail"
+        android:id="@+id/et_registerEmail"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
         android:paddingStart="10dp"
         android:layout_gravity="center_horizontal"
-        android:drawableStart="@drawable/ic_email"
         android:background="@drawable/custom_input"
         android:drawablePadding="10dp"
         android:textSize="14sp"
@@ -47,13 +39,12 @@
         android:layout_marginTop="10dp" />
 
     <EditText
-        android:id="@+id/et_loginPassword"
+        android:id="@+id/et_registerPassword"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
         android:paddingStart="10dp"
         android:layout_gravity="center_horizontal"
-        android:drawableStart="@drawable/ic_lock"
         android:background="@drawable/custom_input"
         android:drawablePadding="10dp"
         android:textSize="14sp"
@@ -62,14 +53,36 @@
         android:inputType="textPassword"
         tools:ignore="RtlSymmetry" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/confirmPassword"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/et_registerConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:paddingStart="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/custom_input"
+        android:drawablePadding="10dp"
+        android:textSize="14sp"
+        android:ems="10"
+        android:hint="@string/confirmPassword"
+        android:inputType="textPassword"
+        tools:ignore="RtlSymmetry" />
+
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="45dp"
-        android:text="@string/login"
-        android:background="@color/fqt_green"/>
+        android:layout_marginTop="30dp"
+        android:background="@color/fqt_green"
+        android:text="@string/register" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,27 +95,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No tienes cuenta con nosotros?"
+            android:text="Tienes cuenta con nosotros?"
             android:textSize="15sp"
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/btn_register"
+            android:id="@+id/btn_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="@string/registerBtn"
+            android:text="@string/loginBtn"
             android:textSize="15sp"
             android:textColor="@color/red"/>
 
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:src="@drawable/fqt_logo"
-        android:contentDescription="logo_fundacion" />
 
 </LinearLayout>
