@@ -9,32 +9,33 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
 
-        Button btn_login = (Button) findViewById(R.id.btn_login);
-        TextView btn_register = (TextView) findViewById(R.id.btn_register);
+        Button btn_register = (Button) findViewById(R.id.btn_register);
+        TextView btn_login = (TextView) findViewById(R.id.btn_login);
+
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
-                Toast.makeText(v.getContext(), "Sesión iniciada", Toast.LENGTH_SHORT).show();
             }
         });
 
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RegisterActivity.class);
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
+                Toast.makeText(v.getContext(), "Registro exitoso!", Toast.LENGTH_SHORT).show();
             }
         });
     }
