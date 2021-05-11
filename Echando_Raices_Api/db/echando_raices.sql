@@ -15,10 +15,10 @@ CREATE TABLE IF NOT EXISTS usuario (
 	idusuario INT NOT NULL AUTO_INCREMENT,
 	email VARCHAR(45) NOT NULL,
 	permiso TINYINT(1) NOT NULL,
-	password VARCHAR(45) NOT NULL,
+	password VARCHAR(60) NOT NULL,
 	nombre VARCHAR(45) NULL,
 	primer_apellido VARCHAR(45) NULL,
-	telefono VARCHAR(45) NULL,
+	telefono VARCHAR(16) NULL,
 	PRIMARY KEY (idusuario))
 ENGINE = InnoDB;
 

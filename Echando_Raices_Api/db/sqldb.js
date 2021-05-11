@@ -7,10 +7,10 @@ const mysql = require('mysql');
 
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: process.env.HOST,
+    host: process.env.DB_HOST,
     user: process.env.USER,
     password: process.env.PASSWD,
-    database: process.env.DB
+    database: process.env.DB_NAME
 });
 /* To export getConnection | usage const getConnection = require(../db/sqldb.js) */
 // const getConnection = (callback) => {
