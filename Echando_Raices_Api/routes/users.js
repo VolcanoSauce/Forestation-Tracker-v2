@@ -13,6 +13,6 @@ router.get('/:userId', UsersController.users_getBydId);
 router.post('/signup', UsersController.users_insert);
 
 // USER LOGIN
-// router.post('/login', UsersController.users_login);
+router.post('/login', UsersController.users_login);
 
 module.exports = router;

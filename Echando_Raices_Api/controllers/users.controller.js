@@ -127,3 +127,46 @@ exports.users_insert = (req, res, next) => {
         conn.release();
     });
 }
+
+
+// USER LOGIN
+exports.users_login = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err)
+            res.status(500).json({ error: err });
+        else {
+            // Check if Email already exists, if not create new User
+            const email = req.body.email;
+            if (/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/.test(email)) {
+                conn.query('SELECT * FROM usuario WHERE email = ?', [email], (error, rows, fields) => {
+                    if (error)
+                        throw error;
+
+                    if (rows.length > 0 && typeof req.body.password !== 'undefined' && req.body.password !== null) {
+                        bcrypt.compare(req.body.password, rows[0].password, (passError, result) => {
+                            if(passError)
+                                return res.status(401).json({ message: 'Authentication Failed' });
+                            
+                            if(result) {
+                                const token = jwt.sign({
+                                    userId: rows[0].idusuario,
+                                    permissionLevel: rows[0].permiso
+                                }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
+                                
+                                return res.status(200).json({
+                                    message: 'Authentication Successful',
+                                    token: token
+                                });
+                            }
+
+                            res.status(401).json({ message: 'Authentication Failed' });
+                        });
+                    } else {
+                        res.status(401).json({ message: 'Authentication Failed' });
+                    }
+                });
+            }
+        }
+        conn.release();
+    });
+}
