@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,32 +36,42 @@ public class LoginActivity extends AppCompatActivity {
         Button btn_login = (Button) findViewById(R.id.btn_login);
         TextView btn_register = (TextView) findViewById(R.id.btn_register);
 
-        /*HTTP REQUEST TEST: https://jsonplaceholder.typicode.com/ */
         EditText etEmail = (EditText) findViewById(R.id.et_loginEmail);
-        // String url = "https://jsonplaceholder.typicode.com/todos/1";
-        String url = "http://10.0.2.2:3600";
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                //etEmail.setText(response.toString());
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //etEmail.setText(error.toString());
-            }
-        });
-        queue.add(jsonObjectRequest);
-        /*HTTP REQUEST TEST*/
+        EditText etPassword = (EditText) findViewById(R.id.et_loginPassword);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
+//                String url = "http://10.0.2.2:3600/users/login";
+//                RequestQueue queue = Volley.newRequestQueue(v.getContext());
+//                JSONObject jsonAuth = new JSONObject();
+//                try {
+//                    jsonAuth.put("email", etEmail.getText().toString().trim());
+//                    jsonAuth.put("password", etPassword.getText().toString().trim());
+//
+//                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonAuth, new Response.Listener<JSONObject>() {
+//                        @Override
+//                        public void onResponse(JSONObject response) {
+//                            try {
+//                                String token = response.getString("token");
+//                                setStoredToken(token);
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }, new Response.ErrorListener() {
+//                        @Override
+//                        public void onErrorResponse(VolleyError error) {
+//                        }
+//                    });
+//
+//                    queue.add(jsonObjectRequest);
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+
+                startNextActivity(MainActivity.class);
                 Toast.makeText(v.getContext(), "Sesión iniciada", Toast.LENGTH_SHORT).show();
             }
         });
@@ -64,10 +79,55 @@ public class LoginActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), RegisterActivity.class);
-                startActivity(intent);
-                finish();
+                startNextActivity(RegisterActivity.class);
             }
         });
+
+        String storedToken = getStoredToken();
+        if(storedToken != null) {
+            JSONObject jwt;
+            try {
+                jwt = parseJwt(storedToken);
+                String part_1 = jwt.getString("part_1");    // getJSONObject didn't work...
+                long exp = Long.parseLong(part_1.substring(part_1.lastIndexOf(':') + 1, part_1.lastIndexOf('}')));
+                long unixTime = System.currentTimeMillis() / 1000L;
+
+                if(unixTime < exp) {
+                    startNextActivity(MainActivity.class);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
+
+    // TODO: MOVER ESTO A UNA CLASE DE UTILERIA
+    public static JSONObject parseJwt(String token) throws JSONException {
+        JSONObject rObj = new JSONObject();
+        String[] parts = token.split("\\.", 0);
+        for (int i = 0; i < parts.length; i++) {
+            byte[] bytes = Base64.getUrlDecoder().decode(parts[i]);
+            String decodedString = new String(bytes, StandardCharsets.UTF_8);
+            rObj.put("part_" + i, decodedString);
+        }
+        return rObj;
+    }
+
+    private void startNextActivity(Class<?> activity) {
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+        finish();
+    }
+
+    private void setStoredToken(String token) {
+        SharedPreferences prefs = this.getSharedPreferences("ECHANDO_RAICES_APP", Context.MODE_PRIVATE);
+        prefs.edit().putString("JWT", token).apply();
+    }
+
+    private String getStoredToken() {
+        SharedPreferences prefs = this.getSharedPreferences("ECHANDO_RAICES_APP", Context.MODE_PRIVATE);
+       return prefs.getString("JWT", null);
+    }
+
 }

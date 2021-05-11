@@ -9,10 +9,10 @@ const areasRoute = require('./routes/areas');
 
 // Connect to DB (Using MySQL Pooling instead)
 // const db = mysql.createConnection({
-//     host: process.env.HOST,
+//     host: process.env.DB_HOST,
 //     user: process.env.USER,
 //     password: process.env.PASSWD,
-//     database: process.env.DB
+//     database: process.env.DB_NAME
 // });
 // db.connect(err => {
 //     if (err)
