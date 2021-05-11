@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        tools:context=".AddTreeFragment">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar Árbol"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:fontFamily="sans-serif-black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_tree_name"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="@color/black"
+            android:layout_marginTop="25dp" />
+
+        <EditText
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:paddingStart="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_input"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:ems="10"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_tree_space"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/tv_profileName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:paddingStart="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_input"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:ems="10"
+            tools:ignore="RtlSymmetry" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_tree_cntd"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:id="@+id/tv_num"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:paddingStart="10dp"
+                android:background="@drawable/custom_input"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:ems="10"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_tree_plant"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textColor="@color/black"
+                android:layout_marginTop="10dp" />
+
+            <EditText
+                android:id="@+id/tv_profileLastname"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:paddingStart="10dp"
+                android:background="@drawable/custom_input"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:textSize="14sp"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:ems="10"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+    </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_tree_date"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp" />
+
+        <EditText
+            android:id="@+id/et_dateTree"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/custom_input"
+            android:drawablePadding="10dp"
+            android:ems="10"
+            android:gravity="center_vertical"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            tools:ignore="RtlSymmetry,TextViewEdits" />
+
+        <fragment
+            android:id="@+id/add_map"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitud"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp" />
+
+
+        <TextView
+            android:id="@+id/tv_lat"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:paddingStart="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_input"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:ems="10" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitud"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:id="@+id/tv_lng"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:paddingStart="10dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/custom_input"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:ems="10" />
+
+        <Button
+            android:id="@+id/btn_addTree"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="45dp"
+            android:text="@string/add_tree"
+            android:background="@color/fqt_green"/>
+    </LinearLayout>
+</ScrollView>
