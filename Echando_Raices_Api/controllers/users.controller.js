@@ -220,9 +220,11 @@ exports.users_updateById = (req, res, next) => {
             sql += ' WHERE idusuario = ' + conn.escape(id);
             
             conn.query(sql, (error, result, fields) => {
-                if(error)
+                if(error) {
+                    res.status(404).json({ message: 'No valid entry for specified ID' });
                     throw error;
-                console.log(result);
+                }
+
                 res.status(200).json({
                     message: 'User updated',
                     request: {
