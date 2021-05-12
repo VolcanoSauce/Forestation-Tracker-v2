@@ -170,3 +170,74 @@ exports.users_login = (req, res, next) => {
         conn.release();
     });
 }
+
+// UPDATE SPECIFIED USER
+exports.users_updateById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if(err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+
+        const id = req.params.userId;
+        if(id) {
+            let sql = 'UPDATE usuario SET';
+            const ops = req.body;
+            // SQL Builder
+            for (const key in ops) {
+                if (Object.hasOwnProperty.call(ops, key)) {
+                    const element = ops[key];
+                    let col = 'skip';
+                    switch (key) {
+                        case 'password':
+                            col = 'password';
+                            break;
+
+                        case 'name':
+                            col = 'nombre';
+                            break;
+
+                        case 'last_name':
+                            col = 'primer_apellido';
+                            break;
+
+                        case 'phone_num':
+                            col = 'telefono';
+                            break;
+                        default:
+                            break;
+                    }
+                    if(col != 'skip') {
+                        sql += ' ' + col;
+                        sql += ' = ' + conn.escape(element);
+                        sql += ',';
+                    }
+                }
+            }
+            sql = sql.slice(0, -1);
+            sql += ' WHERE idusuario = ' + conn.escape(id);
+            
+            conn.query(sql, (error, result, fields) => {
+                if(error)
+                    throw error;
+                console.log(result);
+                res.status(200).json({
+                    message: 'User updated',
+                    request: {
+                        type: 'GET',
+                        url: 'http://' + process.env.API_HOST + ':' + process.env.PORT + '/users/' + id,
+                        body: {
+                            password: 'String',
+                            name: 'String',
+                            last_name: 'String',
+                            phone_num: 'String'
+                        }
+                    }
+                });
+            });
+        } else 
+            res.status(404).json({ message: 'No valid entry for specified ID' });
+
+        conn.release();
+    });
+}
