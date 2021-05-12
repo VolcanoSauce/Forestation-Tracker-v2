@@ -173,7 +173,7 @@ exports.users_login = (req, res, next) => {
 
 // UPDATE SPECIFIED USER
 exports.users_updateById = (req, res, next) => {
-    dbPool.getConnection((err, conn) => {
+    dbPool.getConnection(async(err, conn) => {
         if(err) {
             conn.release();
             return res.status(500).json({ error: err });
@@ -191,6 +191,8 @@ exports.users_updateById = (req, res, next) => {
                     switch (key) {
                         case 'password':
                             col = 'password';
+                            const salt = await bcrypt.genSalt(10);
+                            element = await bcrypt.hash(ops[key], salt);
                             break;
 
                         case 'name':
