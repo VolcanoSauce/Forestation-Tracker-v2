@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const verifyToken = require('../middleware/verifyToken');
 
 const UsersController = require('../controllers/users.controller');
 
@@ -14,5 +15,8 @@ router.post('/signup', UsersController.users_insert);
 
 // USER LOGIN
 router.post('/login', UsersController.users_login);
+
+// UPDATE SPECIFIED USER
+router.patch('/:userId', verifyToken, UsersController.users_updateById);
 
 module.exports = router;
