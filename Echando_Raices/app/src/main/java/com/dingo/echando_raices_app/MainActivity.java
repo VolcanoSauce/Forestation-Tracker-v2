@@ -7,7 +7,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
    public void logout() {
+       // USAR FUNCION setStoredToken cuando este la clase de Utils
+       SharedPreferences prefs = this.getSharedPreferences("ECHANDO_RAICES_APP", Context.MODE_PRIVATE);
+       prefs.edit().putString("JWT", "").apply(); // Borrar token de autenticacion (SIGUE SIENDO UN TOKEN VALIDO)
+       // USAR FUNCION setStoredToken cuando este la clase de Utils
+
        Intent intent = new Intent(this, LoginActivity.class);
        startActivity(intent);
        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
