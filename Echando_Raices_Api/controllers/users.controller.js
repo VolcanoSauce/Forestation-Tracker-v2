@@ -171,7 +171,7 @@ exports.users_login = (req, res, next) => {
     });
 }
 
-// UPDATE SPECIFIED USER
+// UPDATE SPECIFIED USER BY ID
 exports.users_updateById = (req, res, next) => {
     dbPool.getConnection(async(err, conn) => {
         if(err) {
@@ -210,7 +210,7 @@ exports.users_updateById = (req, res, next) => {
                             break;
                     }
                     if(col != 'skip') {
-                        sql += ' ' + col;
+                        sql += ' ' + conn.escapeId(col);
                         sql += ' = ' + conn.escape(element);
                         sql += ',';
                     }
@@ -241,6 +241,43 @@ exports.users_updateById = (req, res, next) => {
             });
         } else 
             res.status(404).json({ message: 'No valid entry for specified ID' });
+
+        conn.release();
+    });
+}
+
+// DELETE SPECIFIED USER BY ID
+exports.users_deleteById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if(err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+
+        const id = req.params.userId;
+        const sql = 'DELETE FROM usuario WHERE idusuario = ' + conn.escape(id);
+        conn.query(sql, (error, result, fields) => {
+            if(error) {
+                res.status(404).json({ message: 'No valid entry for specified ID' });
+                throw error;
+            }
+
+            res.status(200).json({
+                message: 'User deleted',
+                request: {
+                    type: 'POST',
+                    url: 'http://' + process.env.API_HOST + ':' + process.env.PORT + '/users/signup',
+                    body: {
+                        email: 'String',
+                        password: 'String',
+                        name: 'String',
+                        last_name: 'String',
+                        phone_num: 'String'
+                    }
+                }
+            });
+
+        });
 
         conn.release();
     });
