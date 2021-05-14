@@ -6,6 +6,7 @@ require('dotenv').config();
 // Import routes
 const usersRoute = require('./routes/users');
 const areasRoute = require('./routes/areas');
+const forestationsRoute = require('./routes/forestations');
 
 // Connect to DB (Using MySQL Pooling instead)
 // const db = mysql.createConnection({
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 // Middlewares
 app.use('/users', usersRoute);
 app.use('/areas', areasRoute);
+app.use('/forestations', forestationsRoute);
 
 // Routes
 app.get('/', (req, res, next) => {
