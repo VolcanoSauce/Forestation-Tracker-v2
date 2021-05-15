@@ -54,13 +54,13 @@ exports.users_getBydId = (req, res, next) => {
                                     name: row.nombre,
                                     last_name: row.primer_apellido,
                                     phone_num: row.telefono,
-                                    permissionLevel: row.permiso,
-                                    request: {
-                                        type: 'GET',
-                                        url: 'http://' + process.env.API_HOST + ':' + process.env.PORT + '/users'
-                                    }
+                                    permissionLevel: row.permiso
                                 }
-                            })[0] // <- so it isn't sent as json array
+                            })[0],
+                            request: {
+                                type: 'GET',
+                                url: 'http://' + process.env.API_HOST + ':' + process.env.PORT + '/users'
+                            }
                         }
                         res.status(200).json(response);
                     } else {
@@ -279,6 +279,55 @@ exports.users_deleteById = (req, res, next) => {
 
         });
 
+        conn.release();
+    });
+}
+
+// GET SPECIFIED USER'S FORESTATIONS
+exports.users_getForestationsById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const userId = req.params.userId;
+        const sql = 'SELECT * FROM forestacion WHERE usuario_id = ' + conn.escape(userId);
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                const response = {
+                    forestations: rows.map(row => {
+                        return {
+                            _id: row.idforestacion,
+                            plant_count: row.num_plantas,
+                            coords: row.coordenadas,
+                            plant_type: row.tipo_planta_id,
+                            userId: row.usuario_id,
+                            areaId: row.espacio_id,
+                            date: row.fecha,
+                            request: {
+                                type: 'GET',
+                                url: 'http://' + process.env.API_HOST + ':' + process.env.PORT + '/forestations/' + row.idforestacion
+                            }
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else {
+                res.status(400).json({ error: error });
+            }
+        });
+        conn.release();
+    });
+}
+
+// UPDATE SPECIFIED USER'S FORESTATION BY ID
+exports.users_updateForestationBydId = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        res.status(200).json({ message: 'Work In Progress' });
         conn.release();
     });
 }
