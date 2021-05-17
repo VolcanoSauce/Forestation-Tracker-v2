@@ -136,8 +136,8 @@ exports.users_login = (req, res, next) => {
             res.status(500).json({ error: err });
         else {
             // Check if Email already exists, if not create new User
-            const email = req.body.email;
-            if (/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/.test(email)) {
+            if (req.body && req.body.email && /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/.test(email)) {
+                const email = req.body.email;
                 conn.query('SELECT * FROM usuario WHERE email = ?', [email], (error, rows, fields) => {
                     if (error)
                         throw error;
@@ -165,7 +165,8 @@ exports.users_login = (req, res, next) => {
                         res.status(401).json({ message: 'Authentication Failed' });
                     }
                 });
-            }
+            } else
+                res.status(400).json({ message: 'Missing request body data' });
         }
         conn.release();
     });
