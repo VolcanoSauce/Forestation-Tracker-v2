@@ -84,7 +84,21 @@ exports.forestation_insertPlantType = (req, res, next) => {
             conn.release();
             return res.status(500).json({ error: err });
         }
-        res.status(200).json({ message: 'Work In Progress' });
+        if (req.body && req.body.name) {
+            const newPlantType = { nombre: req.body.name };
+            conn.query('INSERT INTO tipo_planta SET ?', newPlantType, (err2, results, fields) => {
+                if (err2)
+                    throw err2;
+                res.status(201).json({
+                    message: 'Created plant type successfully',
+                    createdPlantType: {
+                        _id: results.insertId,
+                        name: newPlantType.nombre
+                    }
+                });
+            });
+        } else
+            res.status(400).json({ message: 'Missing request body data' });
         conn.release();
     });
 }
