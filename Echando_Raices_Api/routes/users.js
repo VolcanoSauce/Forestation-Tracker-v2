@@ -23,4 +23,10 @@ router.patch('/:userId', verifyToken, checkPerm.minPermissionLevelRequired(proce
 // DELETE SPECIFIED USER BY ID
 router.delete('/:userId', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), UsersController.users_deleteById);
 
+// GET SPECIFIED USER'S FORESTATIONS
+router.get('/:userId/forestations', UsersController.users_getForestationsById);
+
+// UPDATE SPECIFIED USER'S FORESTATION BY ID
+router.patch('/:userId/forestations/:forestationId', verifyToken, checkPerm.onlySameUserOrAdminRequired, UsersController.users_updateForestationBydId);
+
 module.exports = router;
