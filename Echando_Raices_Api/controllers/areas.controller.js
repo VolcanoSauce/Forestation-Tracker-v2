@@ -66,10 +66,72 @@ exports.areas_getById = (req, res, next) => {
                     res.status(200).json(response);
                 } else
                     res.status(404).json({ message: 'No valid entry for specified ID' });
-            } else {
+            } else
                 res.status(400).json({ error: error });
-            }
         });
+        conn.release();
+    });
+}
+
+exports.areas_getAllAreaTypes = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if(err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const sql = 'SELECT * FROM tipo_espacio';
+        conn.query(sql, (err2, rows, fields) => {
+            if(!err2) {
+                const response = {
+                    area_types: rows.map(row => {
+                        return {
+                            _id: row.id_tipo_espacio,
+                            name: row.nombre
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        })
+        conn.release();
+    });
+}
+
+// POST (CREATE) NEW AREA
+exports.areas_insert = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        if(req.body && req.body.name && req.body.areaTypeId && req.body.addressId) {
+            var newArea = {
+                nombre: req.body.name,
+                tipo_espacio_id: req.body.areaTypeId,
+                direccion_id: req.body.addressId
+            }
+            if(req.body.email)
+                newArea.email = req.body.email;
+            if(req.body.phone_num)
+                newArea.telefono = req.body.phone_num;
+            conn.query('INSERT INTO espacio SET ?', newArea, (err2, results, fields) => {
+                if(err2)
+                    throw err2;
+                res.status(201).json({
+                    message: 'Created area successfully',
+                    createdArea: {
+                        _id: results.insertId,
+                        name: newArea.nombre,
+                        email: newArea.email,
+                        phone_num: newArea.telefono,
+                        areaTyepId: newArea.tipo_espacio_id,
+                        addressId: newArea.direccion_id
+                    }
+                });
+            });
+        } else
+            res.status(400).json({ message: 'Missing request body data' });
         conn.release();
     });
 }
@@ -91,44 +153,6 @@ exports.areas_insertAreaType = (req, res, next) => {
                     createdAreaType: {
                         _id: results.insertId,
                         name: newAreaType.nombre
-                    }
-                });
-            });
-        } else
-            res.status(400).json({ message: 'Missing request body data' });
-        conn.release();
-    });
-}
-
-// POST (CREATE) NEW AREA
-exports.areas_insert = (req, res, next) => {
-    dbPool.getConnection((err, conn) => {
-        if (err) {
-            conn.release();
-            return res.status(500).json({ error: err });
-        }
-        if(req.body && req.body.name && req.body.areaTypeId && req.body.addressId) {
-            const newArea = {
-                nombre: req.body.name,
-                tipo_espacio_id: req.body.areaTypeId,
-                direccion_id: req.body.addressId
-            }
-            if(req.body.email)
-                newArea.email = req.body.email;
-            if(req.body.phone_num)
-                newArea.telefono = req.body.phone_num;
-            conn.query('INSERT INTO espacio SET ?', newArea, (err2, results, fields) => {
-                if(err2)
-                    throw err2;
-                res.status(201).json({
-                    message: 'Created area successfully',
-                    createdArea: {
-                        _id: results.insertId,
-                        name: newArea.nombre,
-                        email: newArea.email,
-                        phone_num: newArea.telefono,
-                        areaTyepId: newArea.tipo_espacio_id,
-                        addressId: newArea.direccion_id
                     }
                 });
             });

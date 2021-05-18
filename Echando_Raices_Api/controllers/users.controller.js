@@ -63,9 +63,8 @@ exports.users_getBydId = (req, res, next) => {
                             }
                         }
                         res.status(200).json(response);
-                    } else {
+                    } else
                         res.status(404).json({ message: 'No valid entry for specified ID' });
-                    }
                 }
             });
         }
@@ -136,7 +135,7 @@ exports.users_login = (req, res, next) => {
             res.status(500).json({ error: err });
         else {
             // Check if Email already exists, if not create new User
-            if (req.body && req.body.email && /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/.test(email)) {
+            if (req.body && req.body.email && /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+[^<>()\.,;:\s@\"]{2,})$/.test(req.body.email)) {
                 const email = req.body.email;
                 conn.query('SELECT * FROM usuario WHERE email = ?', [email], (error, rows, fields) => {
                     if (error)
