@@ -10,8 +10,11 @@ router.get('/', AreasController.areas_getAll);
 // GET SPECIFIED AREA BY ID
 router.get('/:areaId', AreasController.areas_getById);
 
+// GET ALL PLANT TYPES
+router.get('/props/area-types', AreasController.areas_getAllAreaTypes);
+
 // POST NEW AREA TYPE
-router.post('/area-type', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), AreasController.areas_insertAreaType);
+router.post('/props/area-types', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), AreasController.areas_insertAreaType);
 
 // POST (CREATE) NEW AREA
 router.post('/', verifyToken, AreasController.areas_insert);

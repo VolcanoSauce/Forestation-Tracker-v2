@@ -74,6 +74,31 @@ exports.areas_getById = (req, res, next) => {
     });
 }
 
+exports.areas_getAllAreaTypes = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if(err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const sql = 'SELECT * FROM tipo_espacio';
+        conn.query(sql, (err2, rows, fields) => {
+            if(!err2) {
+                const response = {
+                    area_types: rows.map(row => {
+                        return {
+                            _id: row.id_tipo_espacio,
+                            name: row.nombre
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        })
+        conn.release();
+    });
+}
+
 // POST NEW AREA TYPE
 exports.areas_insertAreaType = (req, res, next) => {
     dbPool.getConnection((err, conn) => {
@@ -108,7 +133,7 @@ exports.areas_insert = (req, res, next) => {
             return res.status(500).json({ error: err });
         }
         if(req.body && req.body.name && req.body.areaTypeId && req.body.addressId) {
-            const newArea = {
+            var newArea = {
                 nombre: req.body.name,
                 tipo_espacio_id: req.body.areaTypeId,
                 direccion_id: req.body.addressId
