@@ -20,6 +20,7 @@ exports.forestations_getAll = (req, res, next) => {
                             userId: row.usuario_id,
                             areaId: row.espacio_id,
                             date: row.fecha,
+                            image: row.imagen_id,
                             request: {
                                 type: 'GET',
                                 url: 'http://' + process.env.API_HOST + ':' + process.env.PORT + '/forestations/' + row.idforestacion
@@ -58,7 +59,8 @@ exports.forestations_getById = (req, res, next) => {
                                 plant_type: row.tipo_planta_id,
                                 userId: row.usuario_id,
                                 areaId: row.espacio_id,
-                                date: row.fecha
+                                date: row.fecha,
+                                image: row.imagen_id
                             }
                         })[0],
                         request: {
@@ -69,9 +71,8 @@ exports.forestations_getById = (req, res, next) => {
                     res.status(200).json(response);
                 } else
                     res.status(404).json({ message: 'No valid entry for specified ID' });
-            } else {
+            } else
                 res.status(400).json({ error: error });
-            }
         });
         conn.release();
     });
@@ -96,6 +97,40 @@ exports.forestations_getAllPlantTypes = (req, res, next) => {
                     })
                 }
                 res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+}
+
+// GET IMAGE DATA BY ID
+exports.forestations_getImageDataById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const id = req.params.imageId;
+        const sql = 'SELECT * FROM imagen WHERE idimagen = ' + conn.escape(id);
+        conn.query(sql, (err2, rows, fields) => {
+            if(!err2) {
+                if(rows.length > 0) {
+                    const response = {
+                        image: rows.map(row => {
+                            return {
+                                _id: row.idimagen,
+                                imageType: row.tipo_imagen,
+                                name: row.nombre,
+                                data: row.data,
+                                createdAt: row.creado,
+                                updatedAt: row.actualizado
+                            }
+                        })[0]
+                    }
+                    res.status(200).json(response);
+                } else 
+                    res.status(404).json({ message: 'No valid entry for specified ID' });
             } else
                 res.status(400).json({ error: error });
         });
@@ -136,7 +171,7 @@ exports.forestations_insert = (req, res, next) => {
                 });
             });
         } else 
-        res.status(400).json({ message: 'Missing request body data' });
+            res.status(400).json({ message: 'Missing request body data' });
         conn.release();
     });
 }
@@ -167,7 +202,7 @@ exports.forestations_insertPlantType = (req, res, next) => {
     });
 }
 
-// UPDATE SPECIFIED FORESTATION BY ID
+// UPDATE SPECIFIED FORESTATION BY ID (WIP)
 exports.forestations_updateById = (req, res, next) => {
     dbPool.getConnection((err, conn) => {
         if (err) {
@@ -179,7 +214,7 @@ exports.forestations_updateById = (req, res, next) => {
     });
 }
 
-// DELETE SPECIFIED FORESTATION BY ID
+// DELETE SPECIFIED FORESTATION BY ID (WIP)
 exports.forestations_deleteById = (req, res, next) => {
     dbPool.getConnection((err, conn) => {
         if (err) {

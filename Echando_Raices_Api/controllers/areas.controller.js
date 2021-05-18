@@ -66,9 +66,8 @@ exports.areas_getById = (req, res, next) => {
                     res.status(200).json(response);
                 } else
                     res.status(404).json({ message: 'No valid entry for specified ID' });
-            } else {
+            } else
                 res.status(400).json({ error: error });
-            }
         });
         conn.release();
     });
@@ -95,32 +94,6 @@ exports.areas_getAllAreaTypes = (req, res, next) => {
             } else
                 res.status(400).json({ error: error });
         })
-        conn.release();
-    });
-}
-
-// POST NEW AREA TYPE
-exports.areas_insertAreaType = (req, res, next) => {
-    dbPool.getConnection((err, conn) => {
-        if(err) {
-            conn.release();
-            return res.status(500).json({ error: err });
-        }
-        if(req.body && req.body.name) {
-            const newAreaType = { nombre: req.body.name };
-            conn.query('INSERT INTO tipo_espacio SET ?', newAreaType, (err2, results, fields) => {
-                if(err2)
-                    throw err2;
-                res.status(201).json({
-                    message: 'Created area type successfully',
-                    createdAreaType: {
-                        _id: results.insertId,
-                        name: newAreaType.nombre
-                    }
-                });
-            });
-        } else
-            res.status(400).json({ message: 'Missing request body data' });
         conn.release();
     });
 }
@@ -154,6 +127,32 @@ exports.areas_insert = (req, res, next) => {
                         phone_num: newArea.telefono,
                         areaTyepId: newArea.tipo_espacio_id,
                         addressId: newArea.direccion_id
+                    }
+                });
+            });
+        } else
+            res.status(400).json({ message: 'Missing request body data' });
+        conn.release();
+    });
+}
+
+// POST NEW AREA TYPE
+exports.areas_insertAreaType = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if(err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        if(req.body && req.body.name) {
+            const newAreaType = { nombre: req.body.name };
+            conn.query('INSERT INTO tipo_espacio SET ?', newAreaType, (err2, results, fields) => {
+                if(err2)
+                    throw err2;
+                res.status(201).json({
+                    message: 'Created area type successfully',
+                    createdAreaType: {
+                        _id: results.insertId,
+                        name: newAreaType.nombre
                     }
                 });
             });
