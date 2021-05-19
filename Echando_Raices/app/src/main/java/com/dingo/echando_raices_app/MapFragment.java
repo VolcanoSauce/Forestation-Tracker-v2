@@ -38,13 +38,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback{
     double[] latitudes = {32.532574, 32.546138, 32.509015, 32.530127};
     double[] longitudes = {-116.965011, -116.976379, -116.992868, -117.023896};
     String[] plants = {"UABC", "Aeropuerto", "Hipodromo", "CECUT"};
-    JSONObject forestations;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,9 +55,6 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
         assert supportMapFragment != null;
         supportMapFragment.getMapAsync(this);
 
-        forestations = new JSONObject();
-        setForestations(getContext());
-
         return view;
     }
 
@@ -66,6 +63,26 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
         LatLng tijuana = new LatLng(32.5027, -117.00371);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tijuana,11));
 
+        getForestationsJson(getContext(), new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                try {
+                    JSONArray forestations = response.getJSONArray("forestations");
+                    for(int i=0; i < forestations.length(); i++) {
+                        JSONObject jsonObj = forestations.getJSONObject(i);
+                        LatLng location = new LatLng(jsonObj.getJSONObject("coords").getDouble("x"), jsonObj.getJSONObject("coords").getDouble("y"));
+                        googleMap.addMarker(new MarkerOptions().position(location).icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onError(String error) {
+                Log.d("MyErrorResponse", error);
+            }
+        });
+
         for(int i=0 ; i<latitudes.length ; i++) {
             LatLng store = new LatLng(latitudes[i], longitudes[i]);
             googleMap.addMarker(new MarkerOptions().position(store).title(plants[i])
@@ -73,7 +90,6 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
         }
 
         googleMap.setOnMarkerClickListener(this);
-
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -103,25 +119,14 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
         return false;
     }
 
-    public void setForestations(Context ctx) {
+    public void getForestationsJson(Context ctx, VolleyCallback callback) {
         String url = "http://10.0.2.2:3600/forestations";
         //String url = UtilitiesER.getApiBaseUrl() + "forestations";
         RequestQueue queue = Volley.newRequestQueue(ctx);
-        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                forestations = response;
-                try {
-                    Log.d("MyResponse", forestations.getJSONArray("forestations").getJSONObject(0).getJSONObject("coords").toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("MyErrorResponse", error.toString());
-            }
+        JsonObjectRequest jsonArrayRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
+            callback.onSuccess(response);
+        }, error -> {
+            callback.onError(error.toString());
         });
         queue.add(jsonArrayRequest);
     }
