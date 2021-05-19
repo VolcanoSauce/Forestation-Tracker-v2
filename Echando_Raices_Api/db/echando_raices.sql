@@ -110,6 +110,21 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table imagen
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS imagen;
+CREATE TABLE IF NOT EXISTS imagen (
+  idimagen INT NOT NULL,
+  tipo_imagen VARCHAR(16) NOT NULL,
+  nombre VARCHAR(45) NOT NULL,
+  data BLOB NOT NULL,
+  creado DATETIME NOT NULL,
+  actualizado DATETIME NOT NULL,
+  PRIMARY KEY (idimagen))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table forestacion
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS forestacion;
@@ -121,11 +136,14 @@ CREATE TABLE IF NOT EXISTS forestacion (
   usuario_id INT NOT NULL,
   espacio_id INT NOT NULL,
   fecha DATE NOT NULL,
+  imagen_id INT,
   PRIMARY KEY (idforestacion),
   FOREIGN KEY (tipo_planta_id)
   REFERENCES tipo_planta (id_tipo_planta),
   FOREIGN KEY (usuario_id , espacio_id)
-  REFERENCES usuario_espacio (usuario_id , espacio_id))
+  REFERENCES usuario_espacio (usuario_id , espacio_id),
+  FOREIGN KEY (imagen_id)
+  REFERENCES imagen (idimagen))
 ENGINE = InnoDB;
 
 
