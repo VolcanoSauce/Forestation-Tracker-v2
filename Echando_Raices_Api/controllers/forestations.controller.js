@@ -1,4 +1,5 @@
 const dbPool = require('../db/sqldb');
+const mysql = require('mysql');
 
 // GET ALL FORESTATIONS
 exports.forestations_getAll = (req, res, next) => {
@@ -149,21 +150,21 @@ exports.forestations_insert = (req, res, next) => {
             let today = new Date();
             var newForestation = {
                 num_plantas: req.body.plant_count,
-                coordenadas: req.body.coords,
                 tipo_planta_id: req.body.plant_type,
                 usuario_id: req.body.userId,
                 espacio_id: req.body.areaId,
                 fecha: today
             }
-            conn.query('INSERT INTO forestacion SET ?', newForestation, (err2, results, fields) => {
+            conn.query('INSERT INTO forestacion SET coordenadas = POINT(?,?), ?', [req.body.coords.x, req.body.coords.y, newForestation], (err2, results, fields) => {
                 if(err2)
-                throw err2;
+                    throw err2;
+                
                 res.status(201).json({
                     message: 'Created forestation entry successfully',
                     createdForestation: {
                         _id: results.insertId,
                         plant_count: newForestation.num_plantas,
-                        coords: newForestation.coordenadas,
+                        coords: req.body.coords,
                         plant_type: newForestation.tipo_planta_id,
                         userId: newForestation.usuario_id,
                         areaId: newForestation.espacio_id,

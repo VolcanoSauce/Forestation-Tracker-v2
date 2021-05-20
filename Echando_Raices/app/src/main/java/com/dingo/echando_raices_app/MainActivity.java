@@ -11,12 +11,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -37,8 +47,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        // SET USER INFO IN NAV HEADER
         View navHeader = nv.getHeaderView(0);
-        // cambiar texto en header
+        TextView tvEmail = navHeader.findViewById(R.id.navh_email);
+        TextView tvUsername = navHeader.findViewById(R.id.navh_username);
+
+        try {
+            String userInfo = UtilitiesER.parseJwt(UtilitiesER.getStoredToken(this)).getString("part_1");
+            int userId = Integer.parseInt(userInfo.substring(userInfo.indexOf(':') + 1, userInfo.indexOf(',')));
+            setUserInfo(userId, new VolleyCallback() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                    try {
+                        String username = response.getJSONObject("user").getString("name");
+                        if(username != null && !username.equals("null") && !username.isEmpty()) {
+                            String lastName = response.getJSONObject("user").getString("last_name");
+                            if(lastName != null && !lastName.equals("null") && !lastName.isEmpty())
+                                username = username.concat(" " + lastName);
+                            tvUsername.setText(username);
+                        }
+                        tvEmail.setText(response.getJSONObject("user").getString("email"));
+                    } catch (JSONException e) { e.printStackTrace(); }
+                }
+
+                @Override
+                public void onError(String error) {
+                    Log.d("MyUserInfoError", error);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new HomeFragment()).commit();
@@ -85,15 +124,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-   public void logout() {
-       // USAR FUNCION setStoredToken cuando este la clase de Utils
-       SharedPreferences prefs = this.getSharedPreferences("ECHANDO_RAICES_APP", Context.MODE_PRIVATE);
-       prefs.edit().putString("JWT", "").apply(); // Borrar token de autenticacion (SIGUE SIENDO UN TOKEN VALIDO)
-       // USAR FUNCION setStoredToken cuando este la clase de Utils
+    private void setUserInfo(int userId, VolleyCallback callback) {
+        String url = UtilitiesER.getApiBaseUrl() + "users/" + userId;
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, callback::onSuccess, error -> callback.onError(error.toString()));
+        queue.add(jsonObjectRequest);
+    }
 
-       Intent intent = new Intent(this, LoginActivity.class);
-       startActivity(intent);
-       Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
-       finish();
-   }
+    public void logout() {
+        UtilitiesER.setStoredToken("", this);
+        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
