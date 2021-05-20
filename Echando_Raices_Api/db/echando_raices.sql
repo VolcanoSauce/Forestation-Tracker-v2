@@ -75,7 +75,7 @@ DROP TABLE IF EXISTS espacio;
 CREATE TABLE IF NOT EXISTS espacio (
 	idespacio INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(45) NOT NULL,
-	email VARCHAR(45) NULL,
+	email VARCHAR(45) NOT NULL,
 	telefono VARCHAR(45) NULL,
 	tipo_espacio_id INT NOT NULL,
 	direccion_id INT NOT NULL,

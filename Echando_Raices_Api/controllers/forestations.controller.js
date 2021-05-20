@@ -145,14 +145,15 @@ exports.forestations_insert = (req, res, next) => {
             conn.release();
             return res.status(500).json({ error: err });
         }
-        if(req.body && req.body.plant_count && req.body.coords && req.body.plant_type && req.body.userId && req.body.areaId, req.body.date) {
+        if(req.body && req.body.plant_count && req.body.coords && req.body.plant_type && req.body.userId && req.body.areaId) {
+            let today = new Date();
             var newForestation = {
                 num_plantas: req.body.plant_count,
                 coordenadas: req.body.coords,
                 tipo_planta_id: req.body.plant_type,
                 usuario_id: req.body.userId,
                 espacio_id: req.body.areaId,
-                fecha: req.body.date
+                fecha: today
             }
             conn.query('INSERT INTO forestacion SET ?', newForestation, (err2, results, fields) => {
                 if(err2)
@@ -166,7 +167,7 @@ exports.forestations_insert = (req, res, next) => {
                         plant_type: newForestation.tipo_planta_id,
                         userId: newForestation.usuario_id,
                         areaId: newForestation.espacio_id,
-                        date: newForestation.fecha
+                        date: today
                     }
                 });
             });
