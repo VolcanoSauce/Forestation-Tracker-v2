@@ -60,9 +60,6 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng tijuana = new LatLng(32.5027, -117.00371);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tijuana,11));
-
         getForestationsJson(getContext(), new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject response) {
@@ -79,15 +76,19 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
             }
             @Override
             public void onError(String error) {
-                Log.d("MyErrorResponse", error);
+                // Log.d("MyErrorResponse", error);
             }
         });
 
+        // PLACEHOLDER
+        LatLng tijuana = new LatLng(32.5027, -117.00371);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tijuana,11));
         for(int i=0 ; i<latitudes.length ; i++) {
             LatLng store = new LatLng(latitudes[i], longitudes[i]);
             googleMap.addMarker(new MarkerOptions().position(store).title(plants[i])
                     .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
         }
+        // PLACEHOLDER
 
         googleMap.setOnMarkerClickListener(this);
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {

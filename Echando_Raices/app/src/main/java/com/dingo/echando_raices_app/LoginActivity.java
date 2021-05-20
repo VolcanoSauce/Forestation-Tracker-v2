@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* ===========USER AUTH=========== */
                 //String url = "http://10.0.2.2:3600/users/login";  // <-- API at localhost
                 String url = UtilitiesER.getApiBaseUrl() + "users/login";    // <-- API at AWS Host
                 RequestQueue queue = Volley.newRequestQueue(v.getContext());
@@ -58,6 +57,11 @@ public class LoginActivity extends AppCompatActivity {
                                 String token = response.getString("token");
                                 UtilitiesER.setStoredToken(token, LoginActivity.this);
                                 runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Sesión iniciada", Toast.LENGTH_SHORT).show()); // runOnUniThread hace funcionar el toast dentro de un try-catch
+
+                                if(UtilitiesER.check4ValidToken(LoginActivity.this)) {
+                                    startNextActivity(MainActivity.class);
+                                    finish();
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -69,12 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                /* ===========USER AUTH=========== */
-
-                if(UtilitiesER.check4ValidToken(LoginActivity.this)) {
-                    startNextActivity(MainActivity.class);
-                    finish();
-                }
             }
         });
 
@@ -85,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Check if a JWT has been Stored and if it's Valid
         if(UtilitiesER.check4ValidToken(this)) {
             startNextActivity(MainActivity.class);
             finish();

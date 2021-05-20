@@ -11,12 +11,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -38,7 +42,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         View navHeader = nv.getHeaderView(0);
-        // cambiar texto en header
+
+        try {
+            String userInfo = UtilitiesER.parseJwt(UtilitiesER.getStoredToken(this)).getString("part_1");
+            Log.d("MyUserInfo", userInfo.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new HomeFragment()).commit();
