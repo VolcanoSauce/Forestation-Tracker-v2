@@ -27,10 +27,9 @@ public final class UtilitiesER {
         return rObj;
     }
 
-    // ESTA CAUSANDO UN EXCEPTION, LA PRIMERA VEZ QUE SE PRESIONA LOGIN
     public static boolean check4ValidToken(Activity currActivity) {
         String storedToken = getStoredToken(currActivity);
-        if(storedToken != null) {
+        if(storedToken != null && !storedToken.isEmpty()) {
             JSONObject jwt;
             try {
                 jwt = parseJwt(storedToken);

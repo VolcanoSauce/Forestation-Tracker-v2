@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="176dp"
-    android:background="@color/fqt_green"
+    android:background="@drawable/nav_header_gradient"
     android:gravity="bottom"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
@@ -15,6 +15,7 @@
         android:src="@mipmap/ic_launcher_round" />
 
     <TextView
+        android:id="@+id/navh_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
@@ -22,6 +23,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
+        android:id="@+id/navh_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="correo@email.com" />

@@ -16,4 +16,8 @@
     <color name="fqt_green">#6BC200</color>
     <color name="fqt_yellow">#D8EB00</color>
     <color name="fqt_black">#000000</color>
+    <!-- Colores Coorporativos -->
+
+    <color name="transparent">#80000000</color>
+
 </resources>
