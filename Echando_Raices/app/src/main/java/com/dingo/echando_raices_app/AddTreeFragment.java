@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,32 +37,23 @@ public class AddTreeFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_tree, container, false);
 
-        EditText et_dateTree = (EditText) view.findViewById(R.id.et_dateTree);
+        Spinner sp_addTreePlant = (Spinner) view.findViewById(R.id.sp_addTreePlant);
+        Spinner sp_addTreeSpace = (Spinner) view.findViewById(R.id.sp_addTreeSpace);
 
-        et_dateTree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                final int year = calendar.get(Calendar.YEAR);
-                final int month = calendar.get(Calendar.MONTH);
-                final int day = calendar.get(Calendar.DATE);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.plants_array, android.R.layout.simple_spinner_item);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        Objects.requireNonNull(getContext()), android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth, new DatePickerDialog.OnDateSetListener() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        month++;
-                        et_dateTree.setText(dayOfMonth+"/"+month+"/"+year);
-                    }
-                }, year, month, day);
-                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
-                datePickerDialog.show();
-            }
-        });
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_addTreePlant.setAdapter(adapter);
 
-        tv_lat = (TextView) view.findViewById(R.id.tv_lat);
-        tv_lng = (TextView) view.findViewById(R.id.tv_lng);
+        adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.spaces_array, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_addTreeSpace.setAdapter(adapter);
+
+        //tv_lat = (TextView) view.findViewById(R.id.tv_lat);
+        //tv_lng = (TextView) view.findViewById(R.id.tv_lng);
 
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.add_map);
 
@@ -86,8 +79,8 @@ public class AddTreeFragment extends Fragment implements OnMapReadyCallback {
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                 googleMap.addMarker(markerOptions);
 
-                tv_lat.setText(Double.toString(latLng.latitude));
-                tv_lng.setText(Double.toString(latLng.longitude));
+                //tv_lat.setText(Double.toString(latLng.latitude));
+                //tv_lng.setText(Double.toString(latLng.longitude));
             }
         });
         UiSettings uiSettings = googleMap.getUiSettings();
