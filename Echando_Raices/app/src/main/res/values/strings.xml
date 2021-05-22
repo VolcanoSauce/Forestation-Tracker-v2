@@ -16,9 +16,12 @@
     <string name="registerBtn"><u>Regístrate</u></string>
 
     <!-- Profile Fragment -->
-    <string name="profile_email">Correo electrónico</string>
+    <string name="profile_email">Correo Electrónico</string>
     <string name="profile_name">Nombre</string>
     <string name="profile_lastname">Apellido</string>
+    <string name="profile_submit_button">Actualizar</string>
+    <string name="profile_phone">Teléfono</string>
+    <string name="profile_password">Contraseña</string>
 
     <!-- Add Tree Fragment -->
     <string name="add_tree_name">Encargado</string>
