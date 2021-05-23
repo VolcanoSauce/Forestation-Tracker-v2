@@ -15,6 +15,16 @@
             android:title="Perfil" />
 
         <item
+            android:id="@+id/nav_add_space"
+            android:icon="@drawable/ic_add_space"
+            android:title="Agregar Espacio" />
+
+        <item
+            android:id="@+id/nav_my_spaces"
+            android:icon="@drawable/ic_my_spaces"
+            android:title="Mis Espacios" />
+
+        <item
             android:id="@+id/nav_add_tree"
             android:icon="@drawable/ic_add_tree"
             android:title="Agregar Árbol" />
