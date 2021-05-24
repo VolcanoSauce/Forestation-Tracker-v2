@@ -117,12 +117,15 @@ public class ProfileFragment extends Fragment {
             }
 
             // TODO: Verify Current Password
-            if(!etNewPassword.getText().toString().isEmpty() && !etConfirmNewPassword.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty() && isNewPasswordConfirmed(etNewPassword.getText().toString().trim(), etConfirmNewPassword.getText().toString().trim())) {
-                try {
-                    newUserData.put("password", etNewPassword.getText().toString().trim());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            if(!etNewPassword.getText().toString().isEmpty() && !etConfirmNewPassword.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
+                if(isNewPasswordConfirmed(etNewPassword.getText().toString().trim(), etConfirmNewPassword.getText().toString().trim())) {
+                    try {
+                        newUserData.put("password", etNewPassword.getText().toString().trim());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else
+                    Toast.makeText(getContext(), "Contraseña no coincide", Toast.LENGTH_SHORT).show();
             }
 
             httpPatchUser(userId, newUserData, new VolleyCallback() {
