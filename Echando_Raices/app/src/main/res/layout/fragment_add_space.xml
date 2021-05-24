@@ -5,17 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    android:background="#f2f2f2"
+    tools:context=".AddSpaceFragment" >
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#f2f2f2">
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/frag_layout_bg"
             android:orientation="vertical">
@@ -23,20 +23,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Perfil"
+                android:text="Agregar Espacio"
                 android:textSize="25sp"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif-black"
                 android:padding="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"/>
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/circle_img_combo"
-                android:scaleType="center" />
 
         </LinearLayout>
 
@@ -47,7 +40,7 @@
             android:background="@drawable/white_round_square"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="-40dp"
+            android:layout_marginTop="-35dp"
             android:padding="10dp"
             android:orientation="vertical"
             android:elevation="2dp">
@@ -55,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/profile_email"
+                android:text="Nombre del Espacio"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
@@ -63,39 +56,7 @@
                 android:textSize="15sp"/>
 
             <EditText
-                android:id="@+id/et_profileEmail"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:background="@drawable/custom_input"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:focusable="false"
-                android:gravity="center_vertical"
-                android:inputType="none"
-                android:paddingStart="10dp"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                tools:ignore="RtlSymmetry" />
-
-            <View
-               android:layout_width="match_parent"
-               android:layout_height="2dp"
-               android:background="#f2f2f2"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/profile_name"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"/>
-
-            <EditText
-                android:id="@+id/et_profileName"
+                android:id="@+id/et_addTreeName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -107,51 +68,25 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:ems="10"
-                tools:ignore="RtlSymmetry" />
-
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/profile_lastname"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"/>
-
-            <EditText
-                android:id="@+id/et_profileLastname"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:paddingStart="10dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_input"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:ems="10"
+                android:inputType="textCapSentences"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/profile_phone"
+                android:text="@string/add_tree_space"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"/>
 
-            <EditText
-                android:id="@+id/et_profilePhone"
+            <Spinner
+                android:id="@+id/sp_addSpaceType"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:paddingStart="10dp"
+                android:paddingStart="2dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_input"
                 android:drawablePadding="10dp"
@@ -161,15 +96,77 @@
                 android:ems="10"
                 tools:ignore="RtlSymmetry" />
 
-            <View
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="#f2f2f2"/>
+                android:layout_height="match_parent"
+                android:padding="10dp" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Estado"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Spinner
+                        android:id="@+id/sp_addSpaceState"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="2dp"
+                        android:background="@drawable/custom_input"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        tools:ignore="RtlSymmetry" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ciudad"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Spinner
+                        android:id="@+id/sp_addSpaceCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="2dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/custom_input"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        tools:ignore="RtlSymmetry" />
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/profile_password"
+                android:text="Dirección"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
@@ -177,25 +174,25 @@
                 android:textSize="15sp"/>
 
             <EditText
-                android:id="@+id/et_profilePassword"
+                android:id="@+id/et_addSpaceAddress"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
+                android:paddingStart="10dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_input"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:textSize="15sp"
                 android:textColor="@color/black"
+                android:inputType="textCapSentences"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nueva Contraseña"
+                android:text="Email"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
@@ -203,25 +200,25 @@
                 android:textSize="15sp"/>
 
             <EditText
-                android:id="@+id/et_profileNewPassword"
+                android:id="@+id/et_addSpaceEmail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
+                android:paddingStart="10dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_input"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:textSize="15sp"
                 android:textColor="@color/black"
+                android:inputType="textEmailAddress"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Confirme Nueva Contraseña"
+                android:text="Teléfono"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
@@ -229,31 +226,29 @@
                 android:textSize="15sp"/>
 
             <EditText
-                android:id="@+id/et_profileConfirmNewPassword"
+                android:id="@+id/et_addSpacePhone"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
+                android:paddingStart="10dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_input"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:textSize="15sp"
                 android:textColor="@color/black"
+                android:inputType="phone"
                 android:ems="10"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
                 tools:ignore="RtlSymmetry" />
-
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_profileSubmit"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_addSpace"
+            android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/profile_submit_button"
-            android:layout_margin="10dp"
+            android:text="Agregar Espacio"
+            android:layout_marginTop="10dp"
             android:textSize="15sp" />
-
     </LinearLayout>
 </ScrollView>

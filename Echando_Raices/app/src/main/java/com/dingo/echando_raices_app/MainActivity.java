@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onSuccess(JSONObject response) {
                     try {
                         String username = response.getJSONObject("user").getString("name");
-                        if(username != null && !username.equals("null") && !username.isEmpty()) {
+                        if(!username.equals("null") && !username.isEmpty()) {
                             String lastName = response.getJSONObject("user").getString("last_name");
-                            if(lastName != null && !lastName.equals("null") && !lastName.isEmpty())
+                            if(!lastName.equals("null") && !lastName.isEmpty())
                                 username = username.concat(" " + lastName);
                             tvUsername.setText(username);
                         }
@@ -93,6 +93,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new ProfileFragment()).commit();
+                break;
+            case R.id.nav_add_space:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddSpaceFragment()).commit();
+                break;
+            case R.id.nav_my_spaces:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MySpacesFragment()).commit();
                 break;
             case R.id.nav_add_tree:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddTreeFragment()).commit();
