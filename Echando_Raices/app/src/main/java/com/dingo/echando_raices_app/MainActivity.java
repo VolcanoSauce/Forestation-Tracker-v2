@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onSuccess(JSONObject response) {
                     try {
                         String username = response.getJSONObject("user").getString("name");
-                        if(username != null && !username.equals("null") && !username.isEmpty()) {
+                        if(!username.equals("null") && !username.isEmpty()) {
                             String lastName = response.getJSONObject("user").getString("last_name");
-                            if(lastName != null && !lastName.equals("null") && !lastName.isEmpty())
+                            if(!lastName.equals("null") && !lastName.isEmpty())
                                 username = username.concat(" " + lastName);
                             tvUsername.setText(username);
                         }
