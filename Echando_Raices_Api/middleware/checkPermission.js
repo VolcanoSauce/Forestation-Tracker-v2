@@ -9,9 +9,9 @@ exports.minPermissionLevelRequired = (required_permission_level) => {
 }
 
 exports.onlySameUserOrAdminRequired = (req, res, next) => {
-    if(req.params && req.params.userId && (req.user.userId === req.params.userId)) {
+    if(req.params && req.params.userId && (req.user.userId == req.params.userId)) {
         return next();
-    } else if(req.body && req.body.userId && (req.user.userId === req.body.userId)) {
+    } else if(req.body && req.body.userId && (req.user.userId == req.body.userId)) {
         return next();
     } else {
         if (req.user.permissionLevel >= process.env.USER_ADMIN)
