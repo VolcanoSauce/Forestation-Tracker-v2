@@ -25,7 +25,6 @@
 
     <!-- Add Space Fragment -->
     <string-array name="spaces_array">
-        <item></item>
         <item>Escuela</item>
         <item>Vía pública</item>
         <item>Propiedad privada</item>
