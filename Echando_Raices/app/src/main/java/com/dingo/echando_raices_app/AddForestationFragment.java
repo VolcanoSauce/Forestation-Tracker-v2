@@ -1,7 +1,6 @@
 package com.dingo.echando_raices_app;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,10 +21,7 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Calendar;
-import java.util.Objects;
-
-public class AddTreeFragment extends Fragment implements OnMapReadyCallback {
+public class AddForestationFragment extends Fragment implements OnMapReadyCallback {
     TextView tv_lat;
     TextView tv_lng;
 
@@ -35,7 +29,7 @@ public class AddTreeFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_tree, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_forestation, container, false);
 
         Spinner sp_addTreePlant = (Spinner) view.findViewById(R.id.sp_addTreePlant);
         Spinner sp_addTreeSpace = (Spinner) view.findViewById(R.id.sp_addTreeSpace);
