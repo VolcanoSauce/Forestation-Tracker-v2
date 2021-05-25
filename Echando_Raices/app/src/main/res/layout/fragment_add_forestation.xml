@@ -168,7 +168,7 @@
                 android:layout_margin="10dp"
                 android:id="@+id/add_map"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="230dp"
                 android:name="com.google.android.gms.maps.SupportMapFragment" />
         </LinearLayout>
 

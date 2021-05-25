@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2f2f2"
-    tools:context=".AddSpaceFragment" >
+    tools:context=".ForestationFragment" >
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agregar Espacio"
+                android:text="Mis Forestaciones"
                 android:textSize="25sp"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif-black"
@@ -45,18 +45,35 @@
             android:orientation="vertical"
             android:elevation="2dp">
 
+            <ImageView
+                android:id="@+id/img_tree"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/no_photo"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                android:id="@+id/btn_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                app:icon="@drawable/ic_camera"
+                android:text="Foto" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del Espacio"
+                android:text="@string/add_tree_name"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"/>
 
-            <EditText
-                android:id="@+id/et_addSpaceName"
+            <TextView
+                android:id="@+id/tv_treeName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -68,25 +85,26 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:ems="10"
-                android:inputType="textCapSentences"
+                android:inputType="none"
+                android:focusable="false"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/add_tree_space"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/black"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/add_area_tipo_espacio"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
-            <Spinner
-                android:id="@+id/sp_addSpaceType"
+            <TextView
+                android:id="@+id/tv_treeSpace"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:paddingStart="2dp"
+                android:paddingStart="10dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_input"
                 android:drawablePadding="10dp"
@@ -105,23 +123,23 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:orientation="vertical" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Estado"
+                        android:text="@string/add_tree_cntd"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
-                    <Spinner
-                        android:id="@+id/sp_addSpaceState"
+                    <TextView
+                        android:id="@+id/tv_treeCtd"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:paddingStart="2dp"
+                        android:paddingStart="10dp"
                         android:background="@drawable/custom_input"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
@@ -141,17 +159,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ciudad"
+                        android:text="@string/add_tree_plant"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
-                    <Spinner
-                        android:id="@+id/sp_addSpaceCity"
+                    <TextView
+                        android:id="@+id/tv_treePlant"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:paddingStart="2dp"
+                        android:paddingStart="10dp"
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/custom_input"
                         android:drawablePadding="10dp"
@@ -163,92 +181,13 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dirección"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"/>
-
-            <EditText
-                android:id="@+id/et_addSpaceAddress"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+            <fragment
                 android:layout_margin="10dp"
-                android:paddingStart="10dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_input"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:inputType="textCapSentences"
-                android:ems="10"
-                tools:ignore="RtlSymmetry" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"/>
-
-            <EditText
-                android:id="@+id/et_addSpaceEmail"
+                android:id="@+id/tree_map"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:paddingStart="10dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_input"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:inputType="textEmailAddress"
-                android:ems="10"
-                tools:ignore="RtlSymmetry" />
+                android:layout_height="230dp"
+                android:name="com.google.android.gms.maps.SupportMapFragment" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Teléfono"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="15sp"/>
-
-            <EditText
-                android:id="@+id/et_addSpacePhone"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:paddingStart="10dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_input"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:inputType="phone"
-                android:ems="10"
-                tools:ignore="RtlSymmetry" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_addSpace"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_gravity="center_horizontal"
-            android:text="Agregar Espacio"
-            android:layout_margin="10dp"
-            android:textSize="15sp" />
     </LinearLayout>
 </ScrollView>
