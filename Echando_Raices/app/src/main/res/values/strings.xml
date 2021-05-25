@@ -24,6 +24,7 @@
     <string name="profile_password">Contraseña</string>
 
     <!-- Add Space Fragment -->
+    <string name="add_area_tipo_espacio">Tipo de Espacio</string>
     <string-array name="spaces_array">
         <item>Escuela</item>
         <item>Vía pública</item>

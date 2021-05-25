@@ -13,6 +13,18 @@ router.get('/:areaId', AreasController.areas_getById);
 // GET ALL AREA TYPES
 router.get('/props/area-types', AreasController.areas_getAllAreaTypes);
 
+// GET ALL ADDRESSES
+router.get('/props/addresses', AreasController.areas_getAllAddresses);
+
+// GET ALL CITIES
+router.get('/props/cities', AreasController.areas_getAllCities);
+
+// GET ALL STATES
+router.get('/props/states', AreasController.areas_getAllStates);
+
+// GET CITIES IN SPECIFIED STATE
+router.get('/props/states/:stateId/cities', AreasController.areas_getCitiesByStateId);
+
 // POST (CREATE) NEW AREA
 router.post('/', verifyToken, AreasController.areas_insert);
 

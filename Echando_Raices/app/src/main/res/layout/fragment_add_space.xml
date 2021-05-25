@@ -74,12 +74,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_tree_space"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:textSize="15sp"/>
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/add_area_tipo_espacio"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/sp_addSpaceType"
@@ -244,11 +244,11 @@
 
         <Button
             android:id="@+id/btn_addSpace"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center_horizontal"
             android:text="Agregar Espacio"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
             android:textSize="15sp" />
     </LinearLayout>
 </ScrollView>
