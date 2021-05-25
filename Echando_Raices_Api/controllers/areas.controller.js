@@ -73,6 +73,7 @@ exports.areas_getById = (req, res, next) => {
     });
 }
 
+// GET ALL AREA TYPES
 exports.areas_getAllAreaTypes = (req, res, next) => {
     dbPool.getConnection((err, conn) => {
         if(err) {
@@ -87,6 +88,115 @@ exports.areas_getAllAreaTypes = (req, res, next) => {
                         return {
                             _id: row.id_tipo_espacio,
                             name: row.nombre
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        })
+        conn.release();
+    });
+}
+
+// GET ALL ADDRESSES
+exports.areas_getAllAddresses = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const sql = 'SELECT * FROM direccion';
+        conn.query(sql, (err2, rows, fields) => {
+            if(!err2) {
+                const response = {
+                    addresses: rows.map(row => {
+                        return {
+                            _id: row.iddireccion,
+                            address: row.direccion,
+                            address2: row.direccion2,
+                            cityId: row.ciudad_id
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        })
+        conn.release();
+    });
+}
+
+// GET ALL CITIES
+exports.areas_getAllCities = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const sql = 'SELECT * FROM ciudad';
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                const response = {
+                    cities: rows.map(row => {
+                        return {
+                            _id: row.idciudad,
+                            name: row.nombre,
+                            stateId: row.estado_id
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        })
+        conn.release();
+    });
+}
+
+// GET ALL STATES
+exports.areas_getAllStates = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const sql = 'SELECT * FROM estado';
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                const response = {
+                    states: rows.map(row => {
+                        return {
+                            _id: row.idestado,
+                            name: row.nombre
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        })
+        conn.release();
+    });
+}
+
+// GET ALL CITIES IN SPECIFIED STATE
+exports.areas_getCitiesByStateId = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const stateId = req.params.stateId;
+        const sql = 'SELECT * FROM ciudad WHERE estado_id = ' + conn.escape(stateId);
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                const response = {
+                    cities: rows.map(row => {
+                        return {
+                            _id: row.idciudad,
+                            name: row.nombre,
+                            stateId: row.estado_id
                         }
                     })
                 }

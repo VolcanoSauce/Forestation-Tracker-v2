@@ -7,9 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,8 +17,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
@@ -101,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MySpacesFragment()).commit();
                 break;
             case R.id.nav_add_tree:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddTreeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddForestationFragment()).commit();
                 break;
             case R.id.nav_my_forestations:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MyForestationsFragment()).commit();
