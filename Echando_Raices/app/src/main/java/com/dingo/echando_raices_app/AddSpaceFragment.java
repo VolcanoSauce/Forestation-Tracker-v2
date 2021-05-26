@@ -199,34 +199,34 @@ public class AddSpaceFragment extends Fragment implements AdapterView.OnItemSele
     }
 
     private void httpGetAreaTypes(VolleyCallback cb) {
-        //String url = UtilitiesER.getApiBaseUrl() + "/areas/props/area-types";
-        String url = "http://10.0.2.2:3600/areas/props/area-types";
+        String url = UtilitiesER.getApiBaseUrl() + "/areas/props/area-types";
+        //String url = "http://10.0.2.2:3600/areas/props/area-types";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> cb.onSuccess(response), error -> cb.onError(error.toString()));
         queue.add(jsonObjectRequest);
     }
 
     private void httpGetCities(VolleyCallback cb) {
-        //String url = UtilitiesER.getApiBaseUrl() + "/areas/props/cities";
-        String url = "http://10.0.2.2:3600/areas/props/cities";
+        String url = UtilitiesER.getApiBaseUrl() + "/areas/props/cities";
+        //String url = "http://10.0.2.2:3600/areas/props/cities";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> cb.onSuccess(response), error -> cb.onError(error.toString()));
         queue.add(jsonObjectRequest);
     }
 
     private void httpPostAddress(JSONObject reqJsonBody, VolleyCallback cb) {
-        //String url = UtilitiesER.getApiBaseUrl() + "/areas/props/address";
-        String url = "http://10.0.2.2:3600/areas/props/addresses";
+        String url = UtilitiesER.getApiBaseUrl() + "/areas/props/addresses";
+        //String url = "http://10.0.2.2:3600/areas/props/addresses";
         queue.add(UtilitiesER.verifiedHttpPostRequest(jwt, url, reqJsonBody, cb));
     }
 
     private void httpPostArea(JSONObject reqJsonBody, VolleyCallback cb) {
-        //String url = UtilitiesER.getApiBaseUrl() + "/areas";
-        String url = "http://10.0.2.2:3600/areas";
+        String url = UtilitiesER.getApiBaseUrl() + "/areas";
+        //String url = "http://10.0.2.2:3600/areas";
         queue.add(UtilitiesER.verifiedHttpPostRequest(jwt, url, reqJsonBody, cb));
     }
 
     private void httpPostUserAreaLink(JSONObject reqJsonBody, VolleyCallback cb) {
-        //String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId + "/areas";
-        String url = "http://10.0.2.2:3600/users/" + userId + "/areas";
+        String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId + "/areas";
+        //String url = "http://10.0.2.2:3600/users/" + userId + "/areas";
         queue.add(UtilitiesER.verifiedHttpPostRequest(jwt, url, reqJsonBody, cb));
     }
 
