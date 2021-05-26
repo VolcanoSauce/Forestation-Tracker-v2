@@ -40,4 +40,9 @@
         <item>Hierba</item>
     </string-array>
 
+    <string-array name="spaces_array">
+        <item>Espacio 1</item>
+        <item>Espacio 2</item>
+    </string-array>
+
 </resources>
