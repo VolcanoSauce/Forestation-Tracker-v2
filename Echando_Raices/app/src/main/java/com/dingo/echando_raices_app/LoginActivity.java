@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //String url = "http://10.0.2.2:3600/users/login";  // <-- API at localhost
-                String url = UtilitiesER.getApiBaseUrl() + "users/login";    // <-- API at AWS Host
+                String url = UtilitiesER.getApiBaseUrl() + "/users/login";    // <-- API at AWS Host
                 RequestQueue queue = Volley.newRequestQueue(v.getContext());
                 JSONObject jsonAuth = new JSONObject();
                 try {
