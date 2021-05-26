@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -61,7 +64,12 @@ public class AddSpaceFragment extends Fragment implements AdapterView.OnItemSele
 
         sp_addSpaceType = (Spinner) view.findViewById(R.id.sp_addSpaceType);
         sp_addSpaceCity = (Spinner) view.findViewById(R.id.sp_addSpaceCity);
+
         Button btnSubmit = (Button)view.findViewById(R.id.as_btn_submit);
+        EditText etAreaName = (EditText)view.findViewById(R.id.et_addSpaceName);
+        EditText etAddress = (EditText)view.findViewById(R.id.et_addSpaceAddress);
+        EditText etEmail = (EditText)view.findViewById(R.id.et_addSpaceEmail);
+        EditText etPhone = (EditText)view.findViewById(R.id.et_addSpacePhone);
 
         areaTypeArrayList = new ArrayList<AreaType>();
         cityArrayList = new ArrayList<City>();
@@ -105,23 +113,38 @@ public class AddSpaceFragment extends Fragment implements AdapterView.OnItemSele
         });
 
         btnSubmit.setOnClickListener(v -> {
-            JSONObject jsonObj = new JSONObject();
+            if(!TextUtils.isEmpty(etAreaName.getText()) && !TextUtils.isEmpty(etAddress.getText()) && !TextUtils.isEmpty(etEmail.getText()) && !sp_addSpaceCity.getSelectedItem().toString().isEmpty() && !sp_addSpaceType.getSelectedItem().toString().isEmpty()) {
+                JSONObject newAddressJson = new JSONObject();
+                City city = (City)sp_addSpaceCity.getSelectedItem();
 
-            httpPostAddress(jsonObj, new VolleyCallback() {
-                @Override
-                public void onSuccess(JSONObject response) {
-                    try {
-                        addressId = response.getJSONObject("createdAddress").getInt("_id");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    newAddressJson.put("address", etAddress.getText().toString().trim());
+                    newAddressJson.put("city", city.getId());
+
+                    httpPostAddress(newAddressJson, new VolleyCallback() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            try {
+                                addressId = response.getJSONObject("createdAddress").getInt("_id");
+
+                                // TODO: AHORA HACER HTTP POST AREA CON EL ID DEL ADDRESS Y DESPUES LIGARLO AL USERID
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String error) {
+
+                        }
+                    });
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
-                @Override
-                public void onError(String error) {
-
-                }
-            });
+            } else
+                Toast.makeText(getContext(), "Información necesaria faltante", Toast.LENGTH_SHORT).show();
         });
 
         return view;
@@ -158,7 +181,7 @@ public class AddSpaceFragment extends Fragment implements AdapterView.OnItemSele
 
     private void httpPostAddress(JSONObject reqJsonBody, VolleyCallback cb) {
         //String url = UtilitiesER.getApiBaseUrl() + "/areas/props/address";
-        String url = "http://10.0.2.2:3600/areas/props/address";
+        String url = "http://10.0.2.2:3600/areas/props/addresses";
         queue.add(UtilitiesER.verifiedHttpPostRequest(jwt, url, reqJsonBody, cb));
     }
 
