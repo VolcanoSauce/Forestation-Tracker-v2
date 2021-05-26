@@ -3,7 +3,6 @@ package com.dingo.echando_raices_app;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
@@ -12,9 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-public class MySpacesFragment extends Fragment implements AdapterView.OnItemClickListener{
+public class MyAreasFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     private String spaces[] = {"Universidad Autonoma de Baja California", "Preparatoria Federal Lazaro Cardenas",
                                 "Tecnologico de Tijuana", "COBACH Tijuana", "COBACH Rosarito"};
@@ -49,7 +47,7 @@ public class MySpacesFragment extends Fragment implements AdapterView.OnItemClic
         bundle.putInt("id_key", position);
 
 
-        Fragment fragment = new SpaceFragment();
+        Fragment fragment = new AreaFragment();
         fragment.setArguments(bundle);
 
         FragmentTransaction ft = getFragmentManager().beginTransaction();

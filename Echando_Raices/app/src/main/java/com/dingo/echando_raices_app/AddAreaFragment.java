@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class AddSpaceFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class AddAreaFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     String jwt;
     String user;
     int userId;

@@ -25,35 +25,13 @@
 
     <!-- Add Space Fragment -->
     <string name="add_area_tipo_espacio">Tipo de Espacio</string>
-    <string-array name="spaces_array">
-        <item>Escuela</item>
-        <item>Vía pública</item>
-        <item>Propiedad privada</item>
-    </string-array>
 
-    <string-array name="states_array">
-        <item>Baja California</item>
-        <item>Tamaulipas</item>
-    </string-array>
-
-    <string-array name="citiesBC_array">
-        <item>Mexicali</item>
-        <item>Rosarito</item>
-        <item>Tecate</item>
-        <item>Tijuana</item>
-    </string-array>
-
-    <string-array name="citiesTamaulipas_array">
-        <item>Nuevo Laredo</item>
-    </string-array>
-
-    <!-- Add Tree Fragment -->
-    <string name="add_tree_name">Encargado</string>
-    <string name="add_tree_space">Espacio</string>
-    <string name="add_tree_cntd">Cantidad</string>
-    <string name="add_tree_plant">Tipo de Planta</string>
-    <string name="add_tree_date">Fecha</string>
-    <string name="add_tree">Agregar Árbol</string>
+    <!-- Add Forestations Fragment -->
+    <string name="add_forestation_user">Encargado</string>
+    <string name="add_forestation_area">Espacio</string>
+    <string name="add_forestation_count">Cantidad</string>
+    <string name="add_forestation_plant_type">Tipo de Planta</string>
+    <string name="add_forestation">Agregar Forestación</string>
 
     <string-array name="plants_array">
         <item>Árbol</item>

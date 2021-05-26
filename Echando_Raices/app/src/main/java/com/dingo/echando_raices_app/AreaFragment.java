@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class SpaceFragment extends Fragment {
+public class AreaFragment extends Fragment {
     String position;
     int id;
 
