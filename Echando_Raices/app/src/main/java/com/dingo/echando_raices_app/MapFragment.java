@@ -42,9 +42,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback{
-    double[] latitudes = {32.532574, 32.546138, 32.509015, 32.530127};
-    double[] longitudes = {-116.965011, -116.976379, -116.992868, -117.023896};
-    String[] plants = {"UABC", "Aeropuerto", "Hipodromo", "CECUT"};
+//    double[] latitudes = {32.532574, 32.546138, 32.509015, 32.530127};
+//    double[] longitudes = {-116.965011, -116.976379, -116.992868, -117.023896};
+//    String[] plants = {"UABC", "Aeropuerto", "Hipodromo", "CECUT"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +68,7 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
                     for(int i=0; i < forestations.length(); i++) {
                         JSONObject jsonObj = forestations.getJSONObject(i);
                         LatLng location = new LatLng(jsonObj.getJSONObject("coords").getDouble("x"), jsonObj.getJSONObject("coords").getDouble("y"));
-                        googleMap.addMarker(new MarkerOptions().position(location).icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
+                        googleMap.addMarker(new MarkerOptions().position(location).title(jsonObj.getString("_id")).icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -80,15 +80,15 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
             }
         });
 
-        // PLACEHOLDER
         LatLng tijuana = new LatLng(32.5027, -117.00371);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tijuana,11));
-        for(int i=0 ; i<latitudes.length ; i++) {
-            LatLng store = new LatLng(latitudes[i], longitudes[i]);
-            googleMap.addMarker(new MarkerOptions().position(store).title(plants[i])
-                    .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
-        }
-        // PLACEHOLDER
+//        // PLACEHOLDER
+//        for(int i=0 ; i<latitudes.length ; i++) {
+//            LatLng store = new LatLng(latitudes[i], longitudes[i]);
+//            googleMap.addMarker(new MarkerOptions().position(store).title(plants[i])
+//                    .icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
+//        }
+//        // PLACEHOLDER
 
         googleMap.setOnMarkerClickListener(this);
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {

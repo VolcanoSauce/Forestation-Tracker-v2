@@ -52,6 +52,7 @@ public class MySpacesFragment extends Fragment implements AdapterView.OnItemClic
         Fragment fragment = new SpaceFragment();
         fragment.setArguments(bundle);
 
-        MySpacesFragment.this.getFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment).commit();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.main_fragment_container, fragment).addToBackStack(null).commit();
     }
 }

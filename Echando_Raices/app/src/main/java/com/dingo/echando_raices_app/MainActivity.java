@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MapFragment()).commit();
                 break;
-            case R.id.nav_version:
+            case R.id.nav_about:
                 Toast.makeText(this, "0.1.0", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_exit:
