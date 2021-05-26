@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setUserInfo(int userId, VolleyCallback callback) {
-        String url = UtilitiesER.getApiBaseUrl() + "users/" + userId;
+        String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId;
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, callback::onSuccess, error -> callback.onError(error.toString()));
         queue.add(jsonObjectRequest);

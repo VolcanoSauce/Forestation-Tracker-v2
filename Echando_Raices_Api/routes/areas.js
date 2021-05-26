@@ -31,6 +31,9 @@ router.post('/', verifyToken, AreasController.areas_insert);
 // POST NEW AREA TYPE
 router.post('/props/area-types', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), AreasController.areas_insertAreaType);
 
+// POST NEW ADDRESS
+router.post('/props/addresses', verifyToken, AreasController.areas_insertAddress);
+
 // UPDATE SPECIFIED AREA BY ID
 router.patch('/:areaId', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), AreasController.areas_updateById);
 
