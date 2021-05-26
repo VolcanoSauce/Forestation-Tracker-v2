@@ -41,7 +41,6 @@ public class AddSpaceFragment extends Fragment implements AdapterView.OnItemSele
     String jwt;
     String user;
     int userId;
-    int addressId;
     ArrayList<AreaType> areaTypeArrayList;
     ArrayList<City> cityArrayList;
     RequestQueue queue;
@@ -116,26 +115,60 @@ public class AddSpaceFragment extends Fragment implements AdapterView.OnItemSele
             if(!TextUtils.isEmpty(etAreaName.getText()) && !TextUtils.isEmpty(etAddress.getText()) && !TextUtils.isEmpty(etEmail.getText()) && !sp_addSpaceCity.getSelectedItem().toString().isEmpty() && !sp_addSpaceType.getSelectedItem().toString().isEmpty()) {
                 JSONObject newAddressJson = new JSONObject();
                 City city = (City)sp_addSpaceCity.getSelectedItem();
+                AreaType areaType = (AreaType)sp_addSpaceType.getSelectedItem();
 
                 try {
                     newAddressJson.put("address", etAddress.getText().toString().trim());
                     newAddressJson.put("city", city.getId());
 
+                    // Create Address entry in DB
                     httpPostAddress(newAddressJson, new VolleyCallback() {
                         @Override
                         public void onSuccess(JSONObject response) {
                             try {
-                                addressId = response.getJSONObject("createdAddress").getInt("_id");
+                                int addressId = response.getJSONObject("createdAddress").getInt("_id");
+                                JSONObject newAreaJson = new JSONObject();
+                                newAreaJson.put("name", etAreaName.getText().toString().trim());
+                                newAreaJson.put("email", etEmail.getText().toString().trim());
+                                newAreaJson.put("area_type", areaType.getId());
+                                newAreaJson.put("address", addressId);
+                                // Create Area entry in DB
+                                httpPostArea(newAreaJson, new VolleyCallback() {
+                                    @Override
+                                    public void onSuccess(JSONObject response2) {
+                                        try {
+                                            int areaId = response2.getJSONObject("createdArea").getInt("_id");
+                                            JSONObject newUserAreaLink = new JSONObject();
+                                            newUserAreaLink.put("userId", userId);
+                                            newUserAreaLink.put("areaId", areaId);
+                                            // Create User-Area link entry in DB
+                                            httpPostUserAreaLink(newUserAreaLink, new VolleyCallback() {
+                                                @Override
+                                                public void onSuccess(JSONObject response3) {
+                                                    Toast.makeText(getContext(), "Espacio creado exitosamente", Toast.LENGTH_SHORT).show();
+                                                }
 
-                                // TODO: AHORA HACER HTTP POST AREA CON EL ID DEL ADDRESS Y DESPUES LIGARLO AL USERID
+                                                @Override
+                                                public void onError(String error) {
+                                                    Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    @Override
+                                    public void onError(String error) {
+                                        Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-
                         @Override
                         public void onError(String error) {
-
+                            Toast.makeText(getContext(), error, Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -192,8 +225,8 @@ public class AddSpaceFragment extends Fragment implements AdapterView.OnItemSele
     }
 
     private void httpPostUserAreaLink(JSONObject reqJsonBody, VolleyCallback cb) {
-        //String url = UtilitiesER.getApiBaseUrl() + "/areas";
-        String url = "http://10.0.2.2:3600/areas";
+        //String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId + "/areas";
+        String url = "http://10.0.2.2:3600/users/" + userId + "/areas";
         queue.add(UtilitiesER.verifiedHttpPostRequest(jwt, url, reqJsonBody, cb));
     }
 
