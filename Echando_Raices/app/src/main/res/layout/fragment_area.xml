@@ -55,18 +55,18 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/tv_spaceName"
+                android:id="@+id/tv_areaName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:paddingStart="10dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
                 android:background="@drawable/custom_input"
                 android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:ems="10"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
@@ -80,11 +80,11 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/tv_spaceType"
+                android:id="@+id/tv_areaType"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:paddingStart="2dp"
+                android:paddingStart="10dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custom_input"
                 android:drawablePadding="10dp"
@@ -115,15 +115,16 @@
                         android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/tv_spaceState"
+                        android:id="@+id/tv_areaState"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:paddingStart="2dp"
+                        android:paddingStart="10dp"
+                        android:layout_gravity="center_horizontal"
                         android:background="@drawable/custom_input"
                         android:drawablePadding="10dp"
                         android:gravity="center_vertical"
-                        android:textSize="14sp"
+                        android:textSize="15sp"
                         android:textColor="@color/black"
                         android:ems="10"
                         tools:ignore="RtlSymmetry" />
@@ -144,12 +145,12 @@
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
-                    <Spinner
-                        android:id="@+id/tv_spaceCity"
+                    <TextView
+                        android:id="@+id/tv_areaCity"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
-                        android:paddingStart="2dp"
+                        android:paddingStart="10dp"
                         android:layout_gravity="center_horizontal"
                         android:background="@drawable/custom_input"
                         android:drawablePadding="10dp"
@@ -172,7 +173,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/tv_spaceAddress"
+                android:id="@+id/tv_areaAddress"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -197,7 +198,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/tv_spaceEmail"
+                android:id="@+id/tv_areaEmail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -222,7 +223,7 @@
                 android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/tv_spacePhone"
+                android:id="@+id/tv_areaPhone"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
