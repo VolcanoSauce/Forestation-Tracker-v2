@@ -99,7 +99,7 @@ exports.users_getUserAreas = (req, res, next) => {
                 res.status(200).json(response);
             } else
                 res.status(400).json({ error: error });
-        })
+        });
         conn.release();
     });
 }

@@ -13,11 +13,20 @@ router.get('/:areaId', AreasController.areas_getById);
 // GET ALL AREA TYPES
 router.get('/props/area-types', AreasController.areas_getAllAreaTypes);
 
+// GET AREA TYPE BY ID
+router.get('/props/area-types/:areaTypeId', AreasController.areas_getAreaTypeById);
+
 // GET ALL ADDRESSES
 router.get('/props/addresses', AreasController.areas_getAllAddresses);
 
+// GET ADDRESS BY ID
+router.get('/props/addresses/:addressId', AreasController.areas_getAddressById);
+
 // GET ALL CITIES
 router.get('/props/cities', AreasController.areas_getAllCities);
+
+// GET CITY BY ID
+router.get('/props/cities/:cityId', AreasController.areas_getCityById);
 
 // GET ALL STATES
 router.get('/props/states', AreasController.areas_getAllStates);
