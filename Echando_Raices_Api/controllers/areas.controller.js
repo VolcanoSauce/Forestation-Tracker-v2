@@ -94,7 +94,37 @@ exports.areas_getAllAreaTypes = (req, res, next) => {
                 res.status(200).json(response);
             } else
                 res.status(400).json({ error: error });
-        })
+        });
+        conn.release();
+    });
+}
+
+// GET AREA TYPE BY ID
+exports.areas_getAreaTypeById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const id = req.params.areaTypeId;
+        const sql = 'SELECT * FROM tipo_espacio WHERE id_tipo_espacio = ' + conn.escape(id);
+        conn.query(sql, (err2, rows, fields) => {
+            if(!err2) {
+                if(rows.length > 0) {
+                    const response = {
+                        areaType: rows.map(row => {
+                            return {
+                                _id: row.id_tipo_espacio,
+                                name: row.nombre
+                            }
+                        })[0]
+                    }
+                    res.status(200).json(response);
+                } else
+                    res.status(404).json({ message: 'No valid entry for specified ID' });
+            } else
+                res.status(400).json({ error: error });
+        });
         conn.release();
     });
 }
@@ -122,10 +152,42 @@ exports.areas_getAllAddresses = (req, res, next) => {
                 res.status(200).json(response);
             } else
                 res.status(400).json({ error: error });
-        })
+        });
         conn.release();
     });
 }
+
+// GET ADDRESS BY ID
+exports.areas_getAddressById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const id = req.params.addressId;
+        const sql = 'SELECT * FROM direccion WHERE iddireccion = ' + conn.escape(id);
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                if (rows.length > 0) {
+                    const response = {
+                        address: rows.map(row => {
+                            return {
+                                _id: row.iddireccion,
+                                address: row.direccion,
+                                address2: row.direccion2,
+                                city: row.ciudad_id
+                            }
+                        })[0]
+                    }
+                    res.status(200).json(response);
+                } else
+                    res.status(404).json({ message: 'No valid entry for specified ID' });
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+};
 
 // GET ALL CITIES
 exports.areas_getAllCities = (req, res, next) => {
@@ -142,17 +204,48 @@ exports.areas_getAllCities = (req, res, next) => {
                         return {
                             _id: row.idciudad,
                             name: row.nombre,
-                            stateId: row.estado_id
+                            state: row.estado_id
                         }
                     })
                 }
                 res.status(200).json(response);
             } else
                 res.status(400).json({ error: error });
-        })
+        });
         conn.release();
     });
 }
+
+// GET CITY BY ID
+exports.areas_getCityById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const id = req.params.cityId;
+        const sql = 'SELECT ciudad.idciudad, ciudad.nombre, estado.nombre as estado FROM ciudad INNER JOIN estado on ciudad.estado_id = estado.idestado where idciudad = ' + conn.escape(id);
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                if (rows.length > 0) {
+                    const response = {
+                        city: rows.map(row => {
+                            return {
+                                _id: row.idciudad,
+                                name: row.nombre,
+                                state: row.estado
+                            }
+                        })[0]
+                    }
+                    res.status(200).json(response);
+                } else
+                    res.status(404).json({ message: 'No valid entry for specified ID' });
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+};
 
 // GET ALL STATES
 exports.areas_getAllStates = (req, res, next) => {
@@ -175,7 +268,7 @@ exports.areas_getAllStates = (req, res, next) => {
                 res.status(200).json(response);
             } else
                 res.status(400).json({ error: error });
-        })
+        });
         conn.release();
     });
 }
@@ -196,14 +289,14 @@ exports.areas_getCitiesByStateId = (req, res, next) => {
                         return {
                             _id: row.idciudad,
                             name: row.nombre,
-                            stateId: row.estado_id
+                            state: row.estado_id
                         }
                     })
                 }
                 res.status(200).json(response);
             } else
                 res.status(400).json({ error: error });
-        })
+        });
         conn.release();
     });
 }
