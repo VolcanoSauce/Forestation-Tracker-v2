@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agregar Árbol"
+                android:text="Agregar Forestación"
                 android:textSize="25sp"
                 android:textColor="@color/black"
                 android:fontFamily="sans-serif-black"
