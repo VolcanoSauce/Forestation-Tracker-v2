@@ -20,14 +20,9 @@
             android:title="Espacios"/>
 
         <item
-            android:id="@+id/nav_add_tree"
-            android:icon="@drawable/ic_add_tree"
-            android:title="Agregar Forestación" />
-
-        <item
-            android:id="@+id/nav_my_forestations"
+            android:id="@+id/nav_forestation"
             android:icon="@drawable/ic_tree_solid"
-            android:title="Mis Forestaciones"/>
+            android:title="Forestaciones" />
 
         <item
             android:id="@+id/nav_map"

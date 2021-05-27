@@ -28,6 +28,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -91,16 +92,22 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
 //        // PLACEHOLDER
 
         googleMap.setOnMarkerClickListener(this);
-        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(latLng);
-                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                googleMap.addMarker(markerOptions.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
-            }
-        });
+
+        // Add markers when clicked
+//        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//                MarkerOptions markerOptions = new MarkerOptions();
+//                markerOptions.position(latLng);
+//                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+//                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+//                googleMap.addMarker(markerOptions.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
+//            }
+//        });
+
+        UiSettings uiSettings = googleMap.getUiSettings();
+        uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setAllGesturesEnabled(true);
     }
 
 

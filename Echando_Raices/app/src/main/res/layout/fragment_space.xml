@@ -20,16 +20,33 @@
             android:background="@drawable/frag_layout_bg"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mis Espacios"
-                android:textSize="25sp"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif-black"
-                android:padding="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/btn_back"
+                    android:src="@drawable/ic_back"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mis Espacios"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-black"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="5dp"/>
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <LinearLayout

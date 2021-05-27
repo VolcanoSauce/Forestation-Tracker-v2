@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,8 @@ public class AreaFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_space, container, false);
 
+        ImageView btn_back = (ImageView) view.findViewById(R.id.btn_back);
+
         TextView tv_spaceName = (TextView) view.findViewById(R.id.tv_spaceName);
 
         Bundle bundle = this.getArguments();
@@ -35,6 +38,14 @@ public class AreaFragment extends Fragment {
         }
 
         tv_spaceName.setText(position);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new AreaContainerFragment();
+                AreaFragment.this.getFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment).commit();
+            }
+        });
 
         return view;
     }
