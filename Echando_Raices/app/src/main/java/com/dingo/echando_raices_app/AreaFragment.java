@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -40,6 +41,7 @@ public class AreaFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_area, container, false);
 
         queue = Volley.newRequestQueue(getContext());
+        ImageView btn_back = (ImageView) view.findViewById(R.id.btn_back);
 
         TextView tvAreaName = (TextView) view.findViewById(R.id.tv_areaName);
         TextView tvAreaType = (TextView) view.findViewById(R.id.tv_areaType);
@@ -120,6 +122,14 @@ public class AreaFragment extends Fragment {
             }
             @Override
             public void onError(String error) {
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new AreaContainerFragment();
+                AreaFragment.this.getFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment).commit();
             }
         });
 

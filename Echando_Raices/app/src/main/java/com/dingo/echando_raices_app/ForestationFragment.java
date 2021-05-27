@@ -1,6 +1,7 @@
 package com.dingo.echando_raices_app;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,10 +19,12 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,11 +55,17 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_forestation, container, false);
+
+        final ScrollView scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+        ImageView ivMapTransparent = (ImageView) view.findViewById(R.id.ivMapTransparent);
+
+        ImageView btn_back = (ImageView) view.findViewById(R.id.btn_back);
 
         Button btn_camera = (Button) view.findViewById(R.id.btn_camera);
         image_tree = (ImageView) view.findViewById(R.id.img_tree);
@@ -88,6 +97,41 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
             @Override
             public void onClick(View v) {
                 permissionCamera();
+            }
+        });
+
+        // Disable Scrollview on Map (Zoom)
+        ivMapTransparent.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        scrollView.requestDisallowInterceptTouchEvent(true);
+                        // Disable touch on transparent view
+                        return false;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        scrollView.requestDisallowInterceptTouchEvent(false);
+                        return true;
+
+                    case MotionEvent.ACTION_MOVE:
+                        scrollView.requestDisallowInterceptTouchEvent(true);
+                        return false;
+
+                    default:
+                        return true;
+                }
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new ForestationContainerFragment();
+                ForestationFragment.this.getFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment).commit();
             }
         });
 
@@ -129,7 +173,7 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         LatLng tijuana = new LatLng(latitude, longitude);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tijuana,12));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tijuana,14));
 
         googleMap.addMarker(new MarkerOptions().position(tijuana).icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
 

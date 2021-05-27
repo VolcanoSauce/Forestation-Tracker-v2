@@ -93,11 +93,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_area:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AreaContainerFragment()).commit();
                 break;
-            case R.id.nav_add_tree:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddForestationFragment()).commit();
-                break;
-            case R.id.nav_my_forestations:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MyForestationsFragment()).commit();
+            case R.id.nav_forestation:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new ForestationContainerFragment()).commit();
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MapFragment()).commit();
