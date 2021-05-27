@@ -128,8 +128,8 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
     }
 
     private void getForestationsJson(Context ctx, VolleyCallback callback) {
-        String url = "http://10.0.2.2:3600/forestations";
-        //String url = UtilitiesER.getApiBaseUrl() + "forestations";
+        //String url = "http://10.0.2.2:3600/forestations";
+        String url = UtilitiesER.getApiBaseUrl() + "/forestations";
         RequestQueue queue = Volley.newRequestQueue(ctx);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             callback.onSuccess(response);
