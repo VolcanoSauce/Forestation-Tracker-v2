@@ -38,14 +38,12 @@ import java.util.Map;
 import java.util.Random;
 
 public class AddAreaFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    String jwt;
-    String user;
-    int userId;
-    ArrayList<AreaType> areaTypeArrayList;
-    ArrayList<City> cityArrayList;
-    RequestQueue queue;
-    private Spinner sp_addSpaceType;
-    private Spinner sp_addSpaceCity;
+    private String jwt;
+    private String user;
+    private int userId;
+    private ArrayList<AreaType> areaTypeArrayList;
+    private ArrayList<City> cityArrayList;
+    private RequestQueue queue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,8 +59,8 @@ public class AddAreaFragment extends Fragment implements AdapterView.OnItemSelec
         }
         userId = Integer.parseInt(user.substring(user.indexOf(':') + 1, user.indexOf(',')));
 
-        sp_addSpaceType = (Spinner) view.findViewById(R.id.sp_addSpaceType);
-        sp_addSpaceCity = (Spinner) view.findViewById(R.id.sp_addSpaceCity);
+        Spinner sp_addSpaceType = (Spinner) view.findViewById(R.id.sp_addSpaceType);
+        Spinner sp_addSpaceCity = (Spinner) view.findViewById(R.id.sp_addSpaceCity);
 
         Button btnSubmit = (Button)view.findViewById(R.id.as_btn_submit);
         EditText etAreaName = (EditText)view.findViewById(R.id.et_addSpaceName);

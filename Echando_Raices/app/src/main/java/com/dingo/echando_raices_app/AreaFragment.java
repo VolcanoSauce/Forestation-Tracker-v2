@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -21,6 +23,10 @@ import org.json.JSONObject;
 public class AreaFragment extends Fragment {
     private int areaId;
     private int userId;
+    private int areaTypeId;
+    private int addressId;
+    private int cityId;
+    private RequestQueue queue;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +39,12 @@ public class AreaFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_area, container, false);
 
+        queue = Volley.newRequestQueue(getContext());
+
         TextView tvAreaName = (TextView) view.findViewById(R.id.tv_areaName);
         TextView tvAreaType = (TextView) view.findViewById(R.id.tv_areaType);
+        TextView tvCity = (TextView) view.findViewById(R.id.tv_areaCity);
+        TextView tvState = (TextView) view.findViewById(R.id.tv_areaState);
         TextView tvAddress = (TextView) view.findViewById(R.id.tv_areaAddress);
         TextView tvEmail = (TextView) view.findViewById(R.id.tv_areaEmail);
         TextView tvPhone = (TextView) view.findViewById(R.id.tv_areaPhone);
@@ -45,35 +55,99 @@ public class AreaFragment extends Fragment {
             userId = bundle.getInt("userId");
         }
 
-        httpGetAreaById(getContext(), new VolleyCallback() {
+        httpGetAreaById(new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject response) {
                 try {
                     JSONObject areaJson = response.getJSONObject("area");
                     tvAreaName.setText(areaJson.getString("name"));
-                    tvAreaType.setText(areaJson.getString("area_type"));
-                    tvAddress.setText(areaJson.getString("address"));
                     tvEmail.setText(areaJson.getString("email"));
-                    if(!areaJson.getString("phone_num").equals("null"))
+                    if(!areaJson.getString("phone_num").equals("null")) {
                         tvPhone.setText(areaJson.getString("phone_num"));
+                    }
+
+                    areaTypeId = areaJson.getInt("area_type");
+                    httpGetAreaTypeById(new VolleyCallback() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            try {
+                                tvAreaType.setText(response.getJSONObject("area_type").getString("name"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(String error) {
+
+                        }
+                    });
+
+                    addressId = areaJson.getInt("address");
+                    httpGetAddressById(new VolleyCallback() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            try {
+                                tvAddress.setText(response.getJSONObject("address").getString("address"));
+                                cityId = response.getJSONObject("address").getInt("city");
+                                httpGetCityById(new VolleyCallback() {
+                                    @Override
+                                    public void onSuccess(JSONObject response) {
+                                        try {
+                                            tvCity.setText(response.getJSONObject("city").getString("name"));
+                                            tvState.setText(response.getJSONObject("city").getString("state"));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                    @Override
+                                    public void onError(String error) {
+
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void onError(String error) {
+
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onError(String error) {
-
             }
         });
 
         return view;
     }
 
-    private void httpGetAreaById(Context ctx, VolleyCallback cb) {
+    private void httpGetAreaById(VolleyCallback cb) {
         String url = UtilitiesER.getApiBaseUrl() + "/areas/" + areaId;
-        RequestQueue queue = Volley.newRequestQueue(ctx);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> cb.onSuccess(response), error -> cb.onError(error.toString()));
         queue.add(jsonObjectRequest);
     }
+
+    private void httpGetAreaTypeById(VolleyCallback  cb) {
+        String url = UtilitiesER.getApiBaseUrl() + "/areas/props/area-types/" + areaTypeId;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, cb::onSuccess, error -> cb.onError(error.toString()));
+        queue.add(jsonObjectRequest);
+    }
+
+    private void httpGetAddressById(VolleyCallback cb) {
+        String url = UtilitiesER.getApiBaseUrl() + "/areas/props/addresses/" + addressId;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, cb::onSuccess, error -> cb.onError(error.toString()));
+        queue.add(jsonObjectRequest);
+    }
+
+    private void httpGetCityById(VolleyCallback cb) {
+        String url = UtilitiesER.getApiBaseUrl() + "/areas/props/cities/" + cityId;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, cb::onSuccess, error -> cb.onError(error.toString()));
+        queue.add(jsonObjectRequest);
+    }
+
 }

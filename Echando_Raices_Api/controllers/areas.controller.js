@@ -112,7 +112,7 @@ exports.areas_getAreaTypeById = (req, res, next) => {
             if(!err2) {
                 if(rows.length > 0) {
                     const response = {
-                        areaType: rows.map(row => {
+                        area_type: rows.map(row => {
                             return {
                                 _id: row.id_tipo_espacio,
                                 name: row.nombre
