@@ -65,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_tree_name"
+                android:text="@string/add_forestation_user"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
@@ -92,7 +92,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_tree_space"
+                android:text="@string/add_forestation_area"
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
@@ -129,7 +129,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/add_tree_cntd"
+                        android:text="@string/add_forestation_count"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
@@ -159,7 +159,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/add_tree_plant"
+                        android:text="@string/add_forestation_plant_type"
                         android:fontFamily="sans-serif-medium"
                         android:textColor="@color/black"
                         android:textSize="15sp" />

@@ -90,11 +90,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new ProfileFragment()).commit();
                 break;
-            case R.id.nav_add_space:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddSpaceFragment()).commit();
-                break;
-            case R.id.nav_my_spaces:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MySpacesFragment()).commit();
+            case R.id.nav_area:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AreaContainerFragment()).commit();
                 break;
             case R.id.nav_add_tree:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddForestationFragment()).commit();
@@ -105,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MapFragment()).commit();
                 break;
-            case R.id.nav_version:
+            case R.id.nav_about:
                 Toast.makeText(this, "0.1.0", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_exit:

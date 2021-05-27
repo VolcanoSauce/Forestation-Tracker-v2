@@ -15,19 +15,14 @@
             android:title="Perfil" />
 
         <item
-            android:id="@+id/nav_add_space"
-            android:icon="@drawable/ic_add_space"
-            android:title="Agregar Espacio" />
-
-        <item
-            android:id="@+id/nav_my_spaces"
-            android:icon="@drawable/ic_my_spaces"
-            android:title="Mis Espacios" />
+            android:id="@+id/nav_area"
+            android:icon="@drawable/ic_my_places"
+            android:title="Espacios"/>
 
         <item
             android:id="@+id/nav_add_tree"
             android:icon="@drawable/ic_add_tree"
-            android:title="Agregar Árbol" />
+            android:title="Agregar Forestación" />
 
         <item
             android:id="@+id/nav_my_forestations"
@@ -41,9 +36,9 @@
 
 
         <item
-            android:id="@+id/nav_version"
-            android:icon="@drawable/ic_launcher_foreground"
-            android:title="Version" />
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_about"
+            android:title="Acerca de" />
     </group>
 
     <item android:title="Salir de Aplicación">
