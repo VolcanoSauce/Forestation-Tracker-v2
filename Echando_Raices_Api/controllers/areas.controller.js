@@ -73,6 +73,7 @@ exports.areas_getById = (req, res, next) => {
     });
 }
 
+// GET ALL AREA TYPES
 exports.areas_getAllAreaTypes = (req, res, next) => {
     dbPool.getConnection((err, conn) => {
         if(err) {
@@ -93,7 +94,209 @@ exports.areas_getAllAreaTypes = (req, res, next) => {
                 res.status(200).json(response);
             } else
                 res.status(400).json({ error: error });
-        })
+        });
+        conn.release();
+    });
+}
+
+// GET AREA TYPE BY ID
+exports.areas_getAreaTypeById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const id = req.params.areaTypeId;
+        const sql = 'SELECT * FROM tipo_espacio WHERE id_tipo_espacio = ' + conn.escape(id);
+        conn.query(sql, (err2, rows, fields) => {
+            if(!err2) {
+                if(rows.length > 0) {
+                    const response = {
+                        area_type: rows.map(row => {
+                            return {
+                                _id: row.id_tipo_espacio,
+                                name: row.nombre
+                            }
+                        })[0]
+                    }
+                    res.status(200).json(response);
+                } else
+                    res.status(404).json({ message: 'No valid entry for specified ID' });
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+}
+
+// GET ALL ADDRESSES
+exports.areas_getAllAddresses = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const sql = 'SELECT * FROM direccion';
+        conn.query(sql, (err2, rows, fields) => {
+            if(!err2) {
+                const response = {
+                    addresses: rows.map(row => {
+                        return {
+                            _id: row.iddireccion,
+                            address: row.direccion,
+                            address2: row.direccion2,
+                            city: row.ciudad_id
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+}
+
+// GET ADDRESS BY ID
+exports.areas_getAddressById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const id = req.params.addressId;
+        const sql = 'SELECT * FROM direccion WHERE iddireccion = ' + conn.escape(id);
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                if (rows.length > 0) {
+                    const response = {
+                        address: rows.map(row => {
+                            return {
+                                _id: row.iddireccion,
+                                address: row.direccion,
+                                address2: row.direccion2,
+                                city: row.ciudad_id
+                            }
+                        })[0]
+                    }
+                    res.status(200).json(response);
+                } else
+                    res.status(404).json({ message: 'No valid entry for specified ID' });
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+};
+
+// GET ALL CITIES
+exports.areas_getAllCities = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const sql = 'SELECT * FROM ciudad';
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                const response = {
+                    cities: rows.map(row => {
+                        return {
+                            _id: row.idciudad,
+                            name: row.nombre,
+                            state: row.estado_id
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+}
+
+// GET CITY BY ID
+exports.areas_getCityById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const id = req.params.cityId;
+        const sql = 'SELECT ciudad.idciudad, ciudad.nombre, estado.nombre as estado FROM ciudad INNER JOIN estado on ciudad.estado_id = estado.idestado where idciudad = ' + conn.escape(id);
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                if (rows.length > 0) {
+                    const response = {
+                        city: rows.map(row => {
+                            return {
+                                _id: row.idciudad,
+                                name: row.nombre,
+                                state: row.estado
+                            }
+                        })[0]
+                    }
+                    res.status(200).json(response);
+                } else
+                    res.status(404).json({ message: 'No valid entry for specified ID' });
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+};
+
+// GET ALL STATES
+exports.areas_getAllStates = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const sql = 'SELECT * FROM estado';
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                const response = {
+                    states: rows.map(row => {
+                        return {
+                            _id: row.idestado,
+                            name: row.nombre
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+}
+
+// GET ALL CITIES IN SPECIFIED STATE
+exports.areas_getCitiesByStateId = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const stateId = req.params.stateId;
+        const sql = 'SELECT * FROM ciudad WHERE estado_id = ' + conn.escape(stateId);
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
+                const response = {
+                    cities: rows.map(row => {
+                        return {
+                            _id: row.idciudad,
+                            name: row.nombre,
+                            state: row.estado_id
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        });
         conn.release();
     });
 }
@@ -105,11 +308,11 @@ exports.areas_insert = (req, res, next) => {
             conn.release();
             return res.status(500).json({ error: err });
         }
-        if(req.body && req.body.name && req.body.areaTypeId && req.body.addressId) {
+        if (req.body && req.body.name && req.body.area_type && req.body.address) {
             var newArea = {
                 nombre: req.body.name,
-                tipo_espacio_id: req.body.areaTypeId,
-                direccion_id: req.body.addressId
+                tipo_espacio_id: req.body.area_type,
+                direccion_id: req.body.address
             }
             if(req.body.email)
                 newArea.email = req.body.email;
@@ -125,8 +328,8 @@ exports.areas_insert = (req, res, next) => {
                         name: newArea.nombre,
                         email: newArea.email,
                         phone_num: newArea.telefono,
-                        areaTyepId: newArea.tipo_espacio_id,
-                        addressId: newArea.direccion_id
+                        area_type: newArea.tipo_espacio_id,
+                        address: newArea.direccion_id
                     }
                 });
             });
@@ -153,6 +356,39 @@ exports.areas_insertAreaType = (req, res, next) => {
                     createdAreaType: {
                         _id: results.insertId,
                         name: newAreaType.nombre
+                    }
+                });
+            });
+        } else
+            res.status(400).json({ message: 'Missing request body data' });
+        conn.release();
+    });
+}
+
+// POST NEW ADDRESS
+exports.areas_insertAddress = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if(err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        if(req.body && req.body.address && req.body.city) {
+            var newAddress = {
+                direccion: req.body.address,
+                ciudad_id: req.body.city
+            }
+            if(req.body.address2)
+                newAddress.direccion2 = req.body.address2;
+            conn.query('INSERT INTO direccion SET ?', newAddress, (err2, results, fields) => {
+                if(err2)
+                    throw err2;
+                res.status(201).json({
+                    message: 'Created address successfully',
+                    createdAddress: {
+                        _id: results.insertId,
+                        address: newAddress.direccion,
+                        address2: newAddress.direccion2,
+                        city: newAddress.ciudad_id
                     }
                 });
             });

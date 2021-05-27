@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2f2f2"
-    tools:context=".AddAreaFragment" >
+    tools:context=".AreaFragment" >
 
     <LinearLayout
         android:orientation="vertical"
@@ -20,22 +20,38 @@
             android:background="@drawable/frag_layout_bg"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Agregar Espacio"
-                android:textSize="25sp"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif-black"
-                android:padding="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="20dp"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/btn_back"
+                    android:src="@drawable/ic_back"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginStart="20dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mis Espacios"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-black"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="5dp"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/white_round_square"
             android:layout_marginLeft="15dp"
@@ -55,8 +71,33 @@
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"/>
 
-            <EditText
-                android:id="@+id/et_addSpaceName"
+            <TextView
+                android:id="@+id/tv_areaName"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_input"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_forestation_area"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/black"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/tv_areaType"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -68,58 +109,75 @@
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:ems="10"
-                android:inputType="textCapSentences"
                 tools:ignore="RtlSymmetry" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/add_area_tipo_espacio"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <Spinner
-                android:id="@+id/sp_addSpaceType"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:paddingStart="2dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/custom_input"
-                android:drawablePadding="10dp"
-                android:gravity="center_vertical"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:ems="10"
-                tools:ignore="RtlSymmetry" />
+                android:layout_height="match_parent"
+                android:padding="10dp" >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="Ciudad"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
 
-            <Spinner
-                android:id="@+id/sp_addSpaceCity"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:background="@drawable/custom_input"
-                android:drawablePadding="10dp"
-                android:ems="10"
-                android:gravity="center_vertical"
-                android:paddingStart="2dp"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                tools:ignore="RtlSymmetry" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Estado"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_areaState"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/custom_input"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        tools:ignore="RtlSymmetry" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="20dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ciudad"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_areaCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/custom_input"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="@color/black"
+                        android:ems="10"
+                        tools:ignore="RtlSymmetry" />
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,8 +189,8 @@
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"/>
 
-            <EditText
-                android:id="@+id/et_addSpaceAddress"
+            <TextView
+                android:id="@+id/tv_areaAddress"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -143,7 +201,6 @@
                 android:gravity="center_vertical"
                 android:textSize="15sp"
                 android:textColor="@color/black"
-                android:inputType="textCapSentences"
                 android:ems="10"
                 tools:ignore="RtlSymmetry" />
 
@@ -157,8 +214,8 @@
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"/>
 
-            <EditText
-                android:id="@+id/et_addSpaceEmail"
+            <TextView
+                android:id="@+id/tv_areaEmail"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -169,7 +226,6 @@
                 android:gravity="center_vertical"
                 android:textSize="15sp"
                 android:textColor="@color/black"
-                android:inputType="textEmailAddress"
                 android:ems="10"
                 tools:ignore="RtlSymmetry" />
 
@@ -183,8 +239,8 @@
                 android:layout_marginTop="10dp"
                 android:textSize="15sp"/>
 
-            <EditText
-                android:id="@+id/et_addSpacePhone"
+            <TextView
+                android:id="@+id/tv_areaPhone"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -195,18 +251,9 @@
                 android:gravity="center_vertical"
                 android:textSize="15sp"
                 android:textColor="@color/black"
-                android:inputType="phone"
                 android:ems="10"
                 tools:ignore="RtlSymmetry" />
-        </LinearLayout>
 
-        <Button
-            android:id="@+id/as_btn_submit"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_gravity="center_horizontal"
-            android:text="Agregar Espacio"
-            android:layout_margin="10dp"
-            android:textSize="15sp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

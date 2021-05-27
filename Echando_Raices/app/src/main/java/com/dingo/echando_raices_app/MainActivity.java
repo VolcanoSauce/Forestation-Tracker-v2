@@ -7,9 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -19,8 +17,6 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
@@ -94,22 +90,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new ProfileFragment()).commit();
                 break;
-            case R.id.nav_add_space:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddSpaceFragment()).commit();
+            case R.id.nav_area:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AreaContainerFragment()).commit();
                 break;
-            case R.id.nav_my_spaces:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MySpacesFragment()).commit();
-                break;
-            case R.id.nav_add_tree:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AddTreeFragment()).commit();
-                break;
-            case R.id.nav_my_forestations:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MyForestationsFragment()).commit();
+            case R.id.nav_forestation:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new ForestationContainerFragment()).commit();
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MapFragment()).commit();
                 break;
-            case R.id.nav_version:
+            case R.id.nav_about:
                 Toast.makeText(this, "0.1.0", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_exit:
@@ -131,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setUserInfo(int userId, VolleyCallback callback) {
-        String url = UtilitiesER.getApiBaseUrl() + "users/" + userId;
+        String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId;
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, callback::onSuccess, error -> callback.onError(error.toString()));
         queue.add(jsonObjectRequest);

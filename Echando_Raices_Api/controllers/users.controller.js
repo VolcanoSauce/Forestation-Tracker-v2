@@ -72,6 +72,38 @@ exports.users_getBydId = (req, res, next) => {
     });
 }
 
+// GET AREAS LINKED TO USER BY USER ID
+exports.users_getUserAreas = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if(err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const userId = req.params.userId;
+        const sql = 'SELECT espacio.* FROM ((usuario_espacio INNER JOIN usuario ON usuario_espacio.usuario_id = usuario.idusuario) \
+        INNER JOIN espacio ON usuario_espacio.espacio_id = espacio.idespacio) WHERE usuario_espacio.usuario_id = ' + conn.escape(userId);
+        conn.query(sql, (err2, rows, fields) => {
+            if(!err2) {
+                const response = {
+                    areas: rows.map(row => {
+                        return {
+                            _id: row.idespacio,
+                            name: row.nombre,
+                            email: row.email,
+                            phone_num: row.telefono,
+                            area_type: row.tipo_espacio_id,
+                            address: row.direccion_id
+                        }
+                    })
+                }
+                res.status(200).json(response);
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+}
+
 // POST (ADD) NEW USER
 exports.users_insert = (req, res, next) => {
     dbPool.getConnection((err, conn) => {
@@ -170,6 +202,36 @@ exports.users_login = (req, res, next) => {
         conn.release();
     });
 }
+
+// POST NEW USER/AREA LINK
+exports.users_insertUserAreaLink = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const userId = req.params.userId;
+        if(req.body && req.body.areaId) {
+            const newUserAreaLink = {
+                usuario_id: userId,
+                espacio_id: req.body.areaId
+            }
+            conn.query('INSERT INTO usuario_espacio SET ?', newUserAreaLink, (err2, results, fields) => {
+                if(err2)
+                    throw err2;
+                res.status(201).json({
+                    message: 'Created user-area link successfully',
+                    createdUserAreaLink: {
+                        userId: newUserAreaLink.usuario_id,
+                        areaId: newUserAreaLink.espacio_id
+                    }
+                });
+            });
+        } else
+            res.status(400).json({ message: 'Missing request body data' });
+        conn.release();
+    });
+};
 
 // UPDATE SPECIFIED USER BY ID
 exports.users_updateById = (req, res, next) => {

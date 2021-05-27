@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerAction() {
-        String url = UtilitiesER.getApiBaseUrl() + "users/signup";
+        String url = UtilitiesER.getApiBaseUrl() + "/users/signup";
         RequestQueue queue = Volley.newRequestQueue(this);
         JSONObject jsonBody = new JSONObject();
 
