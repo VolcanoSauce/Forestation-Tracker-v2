@@ -18,7 +18,7 @@ router.get('/props/plant-types', ForestationsController.forestations_getAllPlant
 router.get('/props/images/:imageId', ForestationsController.forestations_getImageDataById);
 
 // POST NEW FORESTATION
-router.post('/', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), ForestationsController.forestations_insert);
+router.post('/', verifyToken, ForestationsController.forestations_insert);
 
 // POST NEW PLANT TYPE
 router.post('/props/plant-types', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), ForestationsController.forestations_insertPlantType);

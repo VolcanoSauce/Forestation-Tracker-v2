@@ -93,18 +93,6 @@ public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickList
 
         googleMap.setOnMarkerClickListener(this);
 
-        // Add markers when clicked
-//        googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//            @Override
-//            public void onMapClick(LatLng latLng) {
-//                MarkerOptions markerOptions = new MarkerOptions();
-//                markerOptions.position(latLng);
-//                markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-//                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-//                googleMap.addMarker(markerOptions.icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
-//            }
-//        });
-
         UiSettings uiSettings = googleMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
         uiSettings.setAllGesturesEnabled(true);
