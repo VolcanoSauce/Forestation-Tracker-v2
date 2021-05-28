@@ -47,9 +47,11 @@ public class ForestationsAdapter extends ArrayAdapter<Forestation> {
 
         TextView tvPlantType = (TextView)convertView.findViewById(R.id.item_forestation_tv_plant);
         TextView tvPlantCount = (TextView)convertView.findViewById(R.id.item_forestation_tv_plant_count);
+        TextView tvForestationId = (TextView)convertView.findViewById(R.id.item_forestation_tv_id);
 
         if(forestation != null) {
-            tvPlantCount.setText(forestation.getPlant_count());
+            tvPlantCount.setText(Integer.toString(forestation.getPlant_count()));
+            tvForestationId.setText(Integer.toString(forestation.getId()));
             String url = UtilitiesER.getApiBaseUrl() + "/forestations/props/plant-types/" + forestation.getPlant_type();
             httpGetPlantTypeById(getContext(), url, new VolleyCallback() {
                 @Override
