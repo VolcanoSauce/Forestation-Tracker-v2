@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +29,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,16 +43,24 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class ForestationFragment extends Fragment implements OnMapReadyCallback {
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
 
-    String space, ctd, type;
-    int id;
-    double latitude, longitude;
+    private int forestationId;
+    private int userId;
+    private LatLng currCoords;
+    private ImageView image_tree;
+    private RequestQueue queue;
 
-    ImageView image_tree;
+    private TextView tv_treeUser;
+    private TextView tv_treeSpace;
+    private TextView tv_treeCount;
+    private TextView tv_treeType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,10 +70,11 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_forestation, container, false);
+
+        queue = Volley.newRequestQueue(getContext());
 
         final ScrollView scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         ImageView ivMapTransparent = (ImageView) view.findViewById(R.id.ivMapTransparent);
@@ -70,26 +84,35 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
         Button btn_camera = (Button) view.findViewById(R.id.btn_camera);
         image_tree = (ImageView) view.findViewById(R.id.img_tree);
 
-        TextView tv_treeSpace = (TextView) view.findViewById(R.id.tv_treeSpace);
-        TextView tv_treeCntd = (TextView) view.findViewById(R.id.tv_treeCtd);
-        TextView tv_treeType = (TextView) view.findViewById(R.id.tv_treePlant);
+        tv_treeUser = (TextView) view.findViewById(R.id.tv_treeUser);
+        tv_treeSpace = (TextView) view.findViewById(R.id.tv_treeSpace);
+        tv_treeCount = (TextView) view.findViewById(R.id.tv_treeCtd);
+        tv_treeType = (TextView) view.findViewById(R.id.tv_treePlant);
+
+        currCoords = new LatLng(0, 0);
 
         Bundle bundle = this.getArguments();
         if(bundle != null){
-            space = bundle.getString("space_key");
-            id = bundle.getInt("id_key");
-            ctd = bundle.getString("ctd_key");
-            type = bundle.getString("type_key");
-            latitude = bundle.getDouble("latitude_key");
-            longitude = bundle.getDouble("longitude_key");
+            forestationId = bundle.getInt("forestationId");
+            userId = bundle.getInt("userId");
+            httpGetValues(UtilitiesER.getApiBaseUrl() + "/users/" + userId, new VolleyCallback() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                    try {
+                        JSONObject user = response.getJSONObject("user");
+                        String fullname = user.getString("name") + " " + user.getString("last_name");
+                        tv_treeUser.setText(fullname);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onError(String error) {
+                }
+            });
         }
 
-        tv_treeSpace.setText(space);
-        tv_treeCntd.setText(ctd);
-        tv_treeType.setText(type);
-
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.tree_map);
-
         assert supportMapFragment != null;
         supportMapFragment.getMapAsync(this);
 
@@ -107,7 +130,6 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
                 int action = event.getAction();
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
-
                     case MotionEvent.ACTION_MOVE:
                         // Disallow ScrollView to intercept touch events.
                         scrollView.requestDisallowInterceptTouchEvent(true);
@@ -125,12 +147,9 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment = new ForestationContainerFragment();
-                ForestationFragment.this.getFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment).commit();
-            }
+        btn_back.setOnClickListener(v -> {
+            Fragment fragment = new ForestationContainerFragment();
+            ForestationFragment.this.getFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment).commit();
         });
 
         return view;
@@ -170,13 +189,58 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        LatLng tijuana = new LatLng(latitude, longitude);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tijuana,14));
+        httpGetValues(UtilitiesER.getApiBaseUrl() + "/forestations/" + forestationId, new VolleyCallback() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                try {
+                    JSONObject forestation = response.getJSONObject("forestation");
+                    tv_treeCount.setText(forestation.getString("plant_count"));
 
-        googleMap.addMarker(new MarkerOptions().position(tijuana).icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
+                    double latitude = forestation.getJSONObject("coords").getDouble("x");
+                    double longitude = forestation.getJSONObject("coords").getDouble("y");
+                    currCoords = new LatLng(latitude, longitude);
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currCoords,14));
+                    googleMap.addMarker(new MarkerOptions().position(currCoords).icon(bitmapDescriptorFromVector(getContext(), R.drawable.ic_plant)));
+                    UiSettings uiSettings = googleMap.getUiSettings();
+                    uiSettings.setZoomControlsEnabled(true);
 
-        UiSettings uiSettings = googleMap.getUiSettings();
-        uiSettings.setZoomControlsEnabled(true);
+                    httpGetValues(UtilitiesER.getApiBaseUrl() + "/areas/" + forestation.getString("areaId"), new VolleyCallback() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            try {
+                                JSONObject area = response.getJSONObject("area");
+                                tv_treeSpace.setText(area.getString("name"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void onError(String error) {
+                        }
+                    });
+
+                    httpGetValues(UtilitiesER.getApiBaseUrl() + "/forestations/props/plant-types/" + forestation.getString("plant_type"), new VolleyCallback() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            try {
+                                JSONObject plantType = response.getJSONObject("plant_type");
+                                tv_treeType.setText(plantType.getString("name"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void onError(String error) {
+                        }
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onError(String error) {
+            }
+        });
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(Context context, int vectorResId){
@@ -187,4 +251,10 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
         vectorDrawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
+
+    private void httpGetValues(String url, VolleyCallback cb) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> cb.onSuccess(response), error -> cb.onError(error.toString()));
+        queue.add(jsonObjectRequest);
+    }
+
 }

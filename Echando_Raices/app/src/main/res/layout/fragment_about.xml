@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/frag_layout_bg"
+        android:background="@drawable/nav_header_gradient"
         android:orientation="vertical">
 
         <TextView

@@ -80,6 +80,7 @@ public class MyForestationsFragment extends Fragment implements AdapterView.OnIt
 
         Bundle bundle = new Bundle();
         bundle.putInt("forestationId", item.getId());
+        bundle.putInt("userId", userId);
 
         Fragment fragment = new ForestationFragment();
         fragment.setArguments(bundle);
