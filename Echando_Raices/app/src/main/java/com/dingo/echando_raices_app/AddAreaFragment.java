@@ -122,6 +122,8 @@ public class AddAreaFragment extends Fragment implements AdapterView.OnItemSelec
                                 newAreaJson.put("email", etEmail.getText().toString().trim());
                                 newAreaJson.put("area_type", areaType.getId());
                                 newAreaJson.put("address", addressId);
+                                if(!TextUtils.isEmpty(etPhone.getText()))
+                                    newAreaJson.put("phone_num", etPhone.getText().toString().trim());
                                 // Create Area entry in DB
                                 httpPostArea(newAreaJson, new VolleyCallback() {
                                     @Override
