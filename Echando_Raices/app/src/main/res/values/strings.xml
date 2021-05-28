@@ -33,16 +33,4 @@
     <string name="add_forestation_plant_type">Tipo de Planta</string>
     <string name="add_forestation">Agregar Forestación</string>
 
-    <string-array name="plants_array">
-        <item>Árbol</item>
-        <item>Arbusto</item>
-        <item>Mata</item>
-        <item>Hierba</item>
-    </string-array>
-
-    <string-array name="spaces_array">
-        <item>Espacio 1</item>
-        <item>Espacio 2</item>
-    </string-array>
-
 </resources>

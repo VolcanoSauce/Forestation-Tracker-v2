@@ -89,13 +89,42 @@ exports.forestations_getAllPlantTypes = (req, res, next) => {
         const sql = 'SELECT * FROM tipo_planta';
         conn.query(sql, (err2, rows, fields) => {
             if(!err2) {
+                if(rows.length > 0) {
+                    const response = {
+                        plant_types: rows.map(row => {
+                            return {
+                                _id: row.id_tipo_planta,
+                                name: row.nombre
+                            }
+                        })
+                    }
+                    res.status(200).json(response);
+                } else
+                    res.status(404).json({ message: 'No entry for specified ID' });
+            } else
+                res.status(400).json({ error: error });
+        });
+        conn.release();
+    });
+}
+
+exports.forestations_getPlantTypeById = (req, res, next) => {
+    dbPool.getConnection((err, conn) => {
+        if (err) {
+            conn.release();
+            return res.status(500).json({ error: err });
+        }
+        const plantTypeId = req.params.plantTypeId;
+        const sql = 'SELECT * FROM tipo_planta WHERE id_tipo_planta = ' + conn.escape(plantTypeId);
+        conn.query(sql, (err2, rows, fields) => {
+            if (!err2) {
                 const response = {
-                    plant_types: rows.map(row => {
+                    plant_type: rows.map(row => {
                         return {
                             _id: row.id_tipo_planta,
                             name: row.nombre
                         }
-                    })
+                    })[0]
                 }
                 res.status(200).json(response);
             } else

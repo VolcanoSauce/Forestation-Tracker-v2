@@ -10,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.dingo.echando_raices_app.Models.Area;
+import com.dingo.echando_raices_app.Models.PlantType;
 import com.dingo.echando_raices_app.R;
 
 import java.util.ArrayList;
 
-public class AreasAdapter extends ArrayAdapter<Area> {
-    public AreasAdapter(Context context, ArrayList<Area> areas) {
-        super(context, 0, areas);
+public class PlantTypesAdapter extends ArrayAdapter<PlantType> {
+    public PlantTypesAdapter(Context context, ArrayList<PlantType> plantTypes) {
+        super(context, 0, plantTypes);
     }
 
     @Override
@@ -32,16 +32,14 @@ public class AreasAdapter extends ArrayAdapter<Area> {
     }
 
     private View initView(int position, View convertView, ViewGroup parent) {
-        Area area = getItem(position);
+        PlantType plantType = getItem(position);
         if(convertView == null)
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_area, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_plant_type , parent, false);
 
-        TextView tvName = (TextView)convertView.findViewById(R.id.item_area_tv_name);
-
-        if(area != null)
-            tvName.setText(area.getName());
+        TextView tvName = (TextView)convertView.findViewById(R.id.ipt_tvName);
+        if(plantType != null)
+            tvName.setText(plantType.getName());
 
         return convertView;
     }
-
 }

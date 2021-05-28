@@ -107,6 +107,8 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
                 int action = event.getAction();
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
+
+                    case MotionEvent.ACTION_MOVE:
                         // Disallow ScrollView to intercept touch events.
                         scrollView.requestDisallowInterceptTouchEvent(true);
                         // Disable touch on transparent view
@@ -116,10 +118,6 @@ public class ForestationFragment extends Fragment implements OnMapReadyCallback 
                         // Allow ScrollView to intercept touch events.
                         scrollView.requestDisallowInterceptTouchEvent(false);
                         return true;
-
-                    case MotionEvent.ACTION_MOVE:
-                        scrollView.requestDisallowInterceptTouchEvent(true);
-                        return false;
 
                     default:
                         return true;

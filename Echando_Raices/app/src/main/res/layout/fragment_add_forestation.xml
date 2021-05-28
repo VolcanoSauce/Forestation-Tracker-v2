@@ -57,13 +57,14 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/tv_addTreeName"
+                android:id="@+id/tv_addForestationUser"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"
                 android:background="@drawable/custom_input"
                 android:drawablePadding="10dp"
+                android:padding="10dp"
                 android:ems="10"
                 android:focusable="false"
                 android:gravity="center_vertical"
@@ -83,7 +84,7 @@
                 android:textSize="15sp" />
 
             <Spinner
-                android:id="@+id/sp_addTreeSpace"
+                android:id="@+id/sp_addForestationArea"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
@@ -118,7 +119,7 @@
                         android:textSize="15sp" />
 
                     <EditText
-                        android:id="@+id/et_addTreeCntd"
+                        android:id="@+id/et_addForestationCount"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginTop="10dp"
@@ -149,7 +150,7 @@
                         android:textSize="15sp" />
 
                     <Spinner
-                        android:id="@+id/sp_addTreePlant"
+                        android:id="@+id/sp_addForestationPlantType"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_gravity="center_horizontal"
@@ -181,7 +182,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_addTree"
+            android:id="@+id/btn_addForestation"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center_horizontal"
