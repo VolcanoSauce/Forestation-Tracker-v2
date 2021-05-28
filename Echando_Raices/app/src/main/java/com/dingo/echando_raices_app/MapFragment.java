@@ -43,9 +43,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class MapFragment extends Fragment implements GoogleMap.OnMarkerClickListener, OnMapReadyCallback{
-//    double[] latitudes = {32.532574, 32.546138, 32.509015, 32.530127};
-//    double[] longitudes = {-116.965011, -116.976379, -116.992868, -117.023896};
-//    String[] plants = {"UABC", "Aeropuerto", "Hipodromo", "CECUT"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -44,9 +44,6 @@ public class ProfileFragment extends Fragment {
         EditText etName = (EditText)view.findViewById(R.id.et_profileName);
         EditText etLastName = (EditText)view.findViewById(R.id.et_profileLastname);
         EditText etPhone = (EditText)view.findViewById(R.id.et_profilePhone);
-        EditText etPassword = (EditText)view.findViewById(R.id.et_profilePassword);
-        EditText etNewPassword = (EditText)view.findViewById(R.id.et_profileNewPassword);
-        EditText etConfirmNewPassword = (EditText)view.findViewById(R.id.et_profileConfirmNewPassword);
 
         Button btnUpdate = (Button)view.findViewById(R.id.btn_profileSubmit);
 
@@ -117,18 +114,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
 
-            // TODO: Verify Current Password
-            if(!etNewPassword.getText().toString().isEmpty() && !etConfirmNewPassword.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
-                if(isNewPasswordConfirmed(etNewPassword.getText().toString().trim(), etConfirmNewPassword.getText().toString().trim())) {
-                    try {
-                        newUserData.put("password", etNewPassword.getText().toString().trim());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                } else
-                    Toast.makeText(getContext(), "Contraseña no coincide", Toast.LENGTH_SHORT).show();
-            }
-
             httpPatchUser(userId, newUserData, new VolleyCallback() {
                 @Override
                 public void onSuccess(JSONObject response) {
@@ -143,10 +128,6 @@ public class ProfileFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private boolean isNewPasswordConfirmed(String newPasswd, String confirmNewPasswd) {
-        return newPasswd.equals(confirmNewPasswd);
     }
 
     // GET User Info
