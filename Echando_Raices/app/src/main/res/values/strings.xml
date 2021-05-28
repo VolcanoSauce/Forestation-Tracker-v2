@@ -35,7 +35,7 @@
 
     <!-- About Fragment -->
     <string name="about_app_name">Echando Raices</string>
-    <string name="about_app_version">Version 0.1.0</string>
+    <string name="about_app_version">Version 1.1.0</string>
     <string name="about_company">Un proyecto de:</string>
     <string name="about_site_url">
         <a href="https://fqt.org.mx">Fundación que Transforma</a>
