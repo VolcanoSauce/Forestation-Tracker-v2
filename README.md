@@ -1,8 +1,11 @@
 # Echando Raices v2
-
+git clone https://github.com/fqtransforma/UABC-2021.1-Flash.git
 ## Android App
+./Echando_Raices/
 
 ## NodeJS Backend API
+./Echando_Raices_Api/
+
 npm install
 
 npm start (.env file required)
