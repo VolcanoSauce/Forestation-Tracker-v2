@@ -14,6 +14,9 @@ router.get('/:forestationId', ForestationsController.forestations_getById);
 // GET ALL PLANT TYPES
 router.get('/props/plant-types', ForestationsController.forestations_getAllPlantTypes);
 
+// GET SPECIFIED PLANT TYPE BY ID
+router.get('/props/plant-types/:plantTypeId', ForestationsController.forestations_getPlantTypeById);
+
 // GET IMAGE DATA BY ID
 router.get('/props/images/:imageId', ForestationsController.forestations_getImageDataById);
 
