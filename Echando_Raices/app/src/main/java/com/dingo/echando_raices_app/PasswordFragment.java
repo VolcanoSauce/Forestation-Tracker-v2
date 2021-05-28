@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PasswordFragment extends Fragment {
-
     String jwt;
     String user;
     RequestQueue queue;
@@ -34,12 +33,6 @@ public class PasswordFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_password, container, false);
 
         queue = Volley.newRequestQueue(getContext());
-/*
-        EditText etEmail = (EditText)view.findViewById(R.id.et_profileEmail);
-        EditText etName = (EditText)view.findViewById(R.id.et_profileName);
-        EditText etLastName = (EditText)view.findViewById(R.id.et_profileLastname);
-        EditText etPhone = (EditText)view.findViewById(R.id.et_profilePhone);
-*/
         EditText etPassword = (EditText)view.findViewById(R.id.et_profilePassword);
         EditText etNewPassword = (EditText)view.findViewById(R.id.et_profileNewPassword);
         EditText etConfirmNewPassword = (EditText)view.findViewById(R.id.et_profileConfirmNewPassword);
@@ -55,67 +48,9 @@ public class PasswordFragment extends Fragment {
 
         int userId = Integer.parseInt(user.substring(user.indexOf(':') + 1, user.indexOf(',')));
 
-        httpGetUser(userId, new VolleyCallback() {
-            @Override
-            public void onSuccess(JSONObject response) {
- /*
-                try {
-                    JSONObject userObj = response.getJSONObject("user");
-                    String email = userObj.getString("email");
-                    String name = userObj.getString("name");
-                    String lastName = userObj.getString("last_name");
-                    String phone = userObj.getString("phone_num");
-
-                    etEmail.setText(email);
-
-                    if(!name.equals("null"))
-                        etName.setText(name);
-
-                    if(!lastName.equals("null"))
-                        etLastName.setText(lastName);
-
-                    if(!phone.equals("null"))
-                        etPhone.setText(phone);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-*/
-            }
-
-            @Override
-            public void onError(String error) {
-
-            }
-        });
-
         btnUpdate.setOnClickListener(v -> {
             JSONObject newUserData = new JSONObject();
-/*
-            if(!etName.getText().toString().isEmpty()) {
-                try {
-                    newUserData.put("name", etName.getText().toString().trim());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            if(!etLastName.getText().toString().isEmpty()) {
-                try {
-                    newUserData.put("last_name", etLastName.getText().toString().trim());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if(!etPhone.getText().toString().isEmpty()) {
-                try {
-                    newUserData.put("phone_num", etPhone.getText().toString().trim());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-*/
             // TODO: Verify Current Password
             if(!etNewPassword.getText().toString().isEmpty() && !etConfirmNewPassword.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
                 if(isNewPasswordConfirmed(etNewPassword.getText().toString().trim(), etConfirmNewPassword.getText().toString().trim())) {
@@ -146,13 +81,6 @@ public class PasswordFragment extends Fragment {
 
     private boolean isNewPasswordConfirmed(String newPasswd, String confirmNewPasswd) {
         return newPasswd.equals(confirmNewPasswd);
-    }
-
-    // GET User Info
-    private void httpGetUser(int userId, VolleyCallback cb) {
-        String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, cb::onSuccess, error -> cb.onError(error.toString()));
-        queue.add(jsonObjectRequest);
     }
 
     // PATCH User Info
