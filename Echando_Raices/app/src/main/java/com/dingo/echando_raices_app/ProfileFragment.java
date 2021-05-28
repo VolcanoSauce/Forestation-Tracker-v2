@@ -150,14 +150,14 @@ public class ProfileFragment extends Fragment {
 
     // GET User Info
     private void httpGetUser(int userId, VolleyCallback cb) {
-        String url = UtilitiesER.getApiBaseUrl() + "users/" + userId;
+        String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, cb::onSuccess, error -> cb.onError(error.toString()));
         queue.add(jsonObjectRequest);
     }
 
     // PATCH User Info
     private void httpPatchUser(int userId, JSONObject reqJsonBody, VolleyCallback cb) {
-        String url = UtilitiesER.getApiBaseUrl() + "users/" + userId;
+        String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PATCH, url, reqJsonBody, cb::onSuccess, error -> cb.onError(error.toString())) {
            @Override
             protected Map<String, String> getParams() throws AuthFailureError {

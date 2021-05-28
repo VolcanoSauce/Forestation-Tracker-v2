@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2f2f2"
-    tools:context=".AddSpaceFragment" >
+    tools:context=".AddAreaFragment" >
 
     <LinearLayout
         android:orientation="vertical"
@@ -56,7 +56,7 @@
                 android:textSize="15sp"/>
 
             <EditText
-                android:id="@+id/et_addTreeName"
+                android:id="@+id/et_addSpaceName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
@@ -74,12 +74,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_tree_space"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/black"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:textSize="15sp"/>
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/add_area_tipo_espacio"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/sp_addSpaceType"
@@ -96,72 +96,30 @@
                 android:ems="10"
                 tools:ignore="RtlSymmetry" />
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="Ciudad"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <Spinner
+                android:id="@+id/sp_addSpaceCity"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Estado"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <Spinner
-                        android:id="@+id/sp_addSpaceState"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="10dp"
-                        android:paddingStart="2dp"
-                        android:background="@drawable/custom_input"
-                        android:drawablePadding="10dp"
-                        android:gravity="center_vertical"
-                        android:textSize="14sp"
-                        android:textColor="@color/black"
-                        android:ems="10"
-                        tools:ignore="RtlSymmetry" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:paddingLeft="20dp"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ciudad"
-                        android:fontFamily="sans-serif-medium"
-                        android:textColor="@color/black"
-                        android:textSize="15sp" />
-
-                    <Spinner
-                        android:id="@+id/sp_addSpaceCity"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="10dp"
-                        android:paddingStart="2dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/custom_input"
-                        android:drawablePadding="10dp"
-                        android:gravity="center_vertical"
-                        android:textSize="15sp"
-                        android:textColor="@color/black"
-                        android:ems="10"
-                        tools:ignore="RtlSymmetry" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_input"
+                android:drawablePadding="10dp"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:paddingStart="2dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -243,12 +201,12 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_addSpace"
-            android:layout_width="wrap_content"
+            android:id="@+id/as_btn_submit"
+            android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center_horizontal"
             android:text="Agregar Espacio"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
             android:textSize="15sp" />
     </LinearLayout>
 </ScrollView>
