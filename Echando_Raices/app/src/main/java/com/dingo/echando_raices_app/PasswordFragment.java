@@ -1,11 +1,6 @@
 package com.dingo.echando_raices_app;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.provider.SyncStateContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.internal.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,21 +23,23 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProfileFragment extends Fragment {
+public class PasswordFragment extends Fragment {
+
     String jwt;
     String user;
     RequestQueue queue;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_password, container, false);
 
         queue = Volley.newRequestQueue(getContext());
-
+/*
         EditText etEmail = (EditText)view.findViewById(R.id.et_profileEmail);
         EditText etName = (EditText)view.findViewById(R.id.et_profileName);
         EditText etLastName = (EditText)view.findViewById(R.id.et_profileLastname);
         EditText etPhone = (EditText)view.findViewById(R.id.et_profilePhone);
+*/
         EditText etPassword = (EditText)view.findViewById(R.id.et_profilePassword);
         EditText etNewPassword = (EditText)view.findViewById(R.id.et_profileNewPassword);
         EditText etConfirmNewPassword = (EditText)view.findViewById(R.id.et_profileConfirmNewPassword);
@@ -62,6 +58,7 @@ public class ProfileFragment extends Fragment {
         httpGetUser(userId, new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject response) {
+ /*
                 try {
                     JSONObject userObj = response.getJSONObject("user");
                     String email = userObj.getString("email");
@@ -83,6 +80,7 @@ public class ProfileFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+*/
             }
 
             @Override
@@ -93,6 +91,7 @@ public class ProfileFragment extends Fragment {
 
         btnUpdate.setOnClickListener(v -> {
             JSONObject newUserData = new JSONObject();
+/*
             if(!etName.getText().toString().isEmpty()) {
                 try {
                     newUserData.put("name", etName.getText().toString().trim());
@@ -116,7 +115,7 @@ public class ProfileFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-
+*/
             // TODO: Verify Current Password
             if(!etNewPassword.getText().toString().isEmpty() && !etConfirmNewPassword.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()) {
                 if(isNewPasswordConfirmed(etNewPassword.getText().toString().trim(), etConfirmNewPassword.getText().toString().trim())) {
@@ -141,8 +140,8 @@ public class ProfileFragment extends Fragment {
                 }
             });
         });
-
         return view;
+
     }
 
     private boolean isNewPasswordConfirmed(String newPasswd, String confirmNewPasswd) {
@@ -160,19 +159,21 @@ public class ProfileFragment extends Fragment {
     private void httpPatchUser(int userId, JSONObject reqJsonBody, VolleyCallback cb) {
         String url = UtilitiesER.getApiBaseUrl() + "/users/" + userId;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PATCH, url, reqJsonBody, cb::onSuccess, error -> cb.onError(error.toString())) {
-           @Override
+            @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-               Map<String, String> params = new HashMap<String, String>();
-               return params;
-           }
+                Map<String, String> params = new HashMap<String, String>();
+                return params;
+            }
 
-           @Override
+            @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-               Map<String, String> headers = new HashMap<String, String>();
-               headers.put("Authorization", "Bearer " + jwt);
-               return headers;
-           }
+                Map<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", "Bearer " + jwt);
+                return headers;
+            }
         };
         queue.add(jsonObjectRequest);
     }
+
+
 }

@@ -7,15 +7,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Area {
-    private int _id;
+    private int id;
     private String name;
     private String email;
     private String phone_num;
     private int area_type;
     private int address;
 
-    public Area(int _id, String name, String email, String phone_num, int area_type, int address) {
-        this._id = _id;
+    public Area(int id, String name, String email, String phone_num, int area_type, int address) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phone_num = phone_num;
@@ -25,7 +25,7 @@ public class Area {
 
     public Area(JSONObject object) {
         try {
-            this._id = object.getInt("_id");
+            this.id = object.getInt("_id");
             this.name = object.getString("name");
             this.email = object.getString("email");
             this.phone_num = object.getString("phone_num");
@@ -49,11 +49,11 @@ public class Area {
     }
 
     public int getId() {
-        return _id;
+        return id;
     }
 
-    public void setId(int _id) {
-        this._id = _id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

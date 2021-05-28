@@ -34,9 +34,6 @@ public class MyAreasFragment extends Fragment implements AdapterView.OnItemClick
     private int userId;
     private ArrayList<Area> areaArrayList;
 
-    private String spaces[] = {"Universidad Autonoma de Baja California", "Preparatoria Federal Lazaro Cardenas",
-                                "Tecnologico de Tijuana", "COBACH Tijuana", "COBACH Rosarito"};
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -51,7 +48,6 @@ public class MyAreasFragment extends Fragment implements AdapterView.OnItemClick
         userId = Integer.parseInt(user.substring(user.indexOf(':') + 1, user.indexOf(',')));
 
         areaArrayList = new ArrayList<>();
-
         httpGetMyAreas(getContext(), new VolleyCallback() {
             @Override
             public void onSuccess(JSONObject response) {
@@ -62,7 +58,6 @@ public class MyAreasFragment extends Fragment implements AdapterView.OnItemClick
                     ListView lv_mySpaces = (ListView) view.findViewById(R.id.lv_myAreas);
                     lv_mySpaces.setAdapter(adapter);
                     lv_mySpaces.setOnItemClickListener(getSelf());
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

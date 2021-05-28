@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new HomeFragment()).commit();
                 break;
             case R.id.nav_profile:
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new ProfileFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new ProfilePasswordContainer()).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new ProfileFragment()).commit();
                 break;
             case R.id.nav_area:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AreaContainerFragment()).commit();
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new MapFragment()).commit();
                 break;
             case R.id.nav_about:
-                Toast.makeText(this, "0.1.0", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, new AboutFragment()).commit();
                 break;
             case R.id.nav_exit:
                 logout();

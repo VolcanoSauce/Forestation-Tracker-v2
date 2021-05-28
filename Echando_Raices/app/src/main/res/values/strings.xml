@@ -33,16 +33,16 @@
     <string name="add_forestation_plant_type">Tipo de Planta</string>
     <string name="add_forestation">Agregar Forestación</string>
 
-    <string-array name="plants_array">
-        <item>Árbol</item>
-        <item>Arbusto</item>
-        <item>Mata</item>
-        <item>Hierba</item>
-    </string-array>
-
-    <string-array name="spaces_array">
-        <item>Espacio 1</item>
-        <item>Espacio 2</item>
-    </string-array>
-
+    <!-- About Fragment -->
+    <string name="about_app_name">Echando Raices</string>
+    <string name="about_app_version">Version 1.1.0</string>
+    <string name="about_company">Un proyecto de:</string>
+    <string name="about_site_url">
+        <a href="https://fqt.org.mx">Fundación que Transforma</a>
+    </string>
+    <string name="about_development_team">Aplicación desarrollada en conjunto con UABC-FCQI</string>
+    <string name="about_developer1">Alberto Chagala</string>
+    <string name="about_developer2">Salvador Gonzalez</string>
+    <string name="about_developer3">Ivan Morales</string>
+    <string name="about_developer4">Miguel Maldonado</string>
 </resources>

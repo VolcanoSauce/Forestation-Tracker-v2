@@ -47,7 +47,7 @@
             <ListView
                 android:id="@+id/lv_myForestations"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="640dp"
                 android:layout_margin="10dp"
                 tools:ignore="NestedScrolling" />
 
