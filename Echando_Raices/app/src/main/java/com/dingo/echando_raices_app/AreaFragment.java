@@ -65,8 +65,8 @@ public class AreaFragment extends Fragment {
                     tvAreaName.setText(areaJson.getString("name"));
                     tvEmail.setText(areaJson.getString("email"));
                     if(!areaJson.getString("phone_num").equals("null")) {
+                        tvPhone.setText(areaJson.getString("phone_num"));
                     }
-                    tvPhone.setText(areaJson.getString("phone_num"));
 
                     areaTypeId = areaJson.getInt("area_type");
                     httpGetAreaTypeById(new VolleyCallback() {
