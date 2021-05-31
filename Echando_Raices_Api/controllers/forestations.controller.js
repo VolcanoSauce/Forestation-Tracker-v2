@@ -108,6 +108,7 @@ exports.forestations_getAllPlantTypes = (req, res, next) => {
     });
 }
 
+// GET PLANT TYPE BY ID
 exports.forestations_getPlantTypeById = (req, res, next) => {
     dbPool.getConnection((err, conn) => {
         if (err) {

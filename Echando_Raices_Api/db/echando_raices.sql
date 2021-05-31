@@ -114,10 +114,10 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS imagen;
 CREATE TABLE IF NOT EXISTS imagen (
-  idimagen INT NOT NULL,
+  idimagen INT NOT NULL AUTO_INCREMENT,
   tipo_imagen VARCHAR(16) NOT NULL,
-  nombre VARCHAR(45) NOT NULL,
-  data BLOB NOT NULL,
+  nombre VARCHAR(120) NOT NULL,
+  data MEDIUMBLOB NOT NULL,
   creado DATETIME NOT NULL,
   actualizado DATETIME NOT NULL,
   PRIMARY KEY (idimagen))

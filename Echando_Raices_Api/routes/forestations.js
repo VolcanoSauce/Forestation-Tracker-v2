@@ -2,8 +2,10 @@ const express = require('express');
 const router = express.Router();
 const verifyToken = require('../middleware/verifyToken');
 const checkPerm = require('../middleware/checkPermission');
+const upload = require('../middleware/upload');
 
 const ForestationsController = require('../controllers/forestations.controller');
+const UploadController = require('../controllers/upload.controller');
 
 // GET ALL FORESTATIONS
 router.get('/', ForestationsController.forestations_getAll);
@@ -25,6 +27,9 @@ router.post('/', verifyToken, ForestationsController.forestations_insert);
 
 // POST NEW PLANT TYPE
 router.post('/props/plant-types', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), ForestationsController.forestations_insertPlantType);
+
+// POST NEW IMAGE
+router.post('/:forestationId/props/images/upload', verifyToken, checkPerm.onlySameUserOrAdminRequired, upload.single('file'), UploadController.uploadFiles);
 
 // UPDATE SPECIFIED FORESTATION BY ID
 router.patch('/:forestationId', verifyToken, checkPerm.minPermissionLevelRequired(process.env.USER_ADMIN), ForestationsController.forestations_updateById);
