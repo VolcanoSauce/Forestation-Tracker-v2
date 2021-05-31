@@ -1,5 +1,22 @@
 # Echando Raices v2
 git clone https://github.com/fqtransforma/UABC-2021.1-Flash.git
+
+## Rubrica Caracteristicas Conceptuales de la Herramienta
+1. La herramienta refleja un análisis consistente con la lógica el problema propuesto e implementa un diseño orientado a sistemas distribuidos consistente con la lógica de la solución propuesta
+    * _El sistema es una solucion al problema propuesto, implementando un diseño orientado a sistemas distribuidos, ya que es una solucion de partes separadas trabajando junto, unas de estas partes siendo: rutas, controladores, middlewares, etc. El backend del servicio web API utilizando el Patron REST de arquitectura, que permite gran escalabilidad, de tal forma que puede servir a multiples frontends en diferentes plataformas y dispositivos._
+
+2. La herramienta adopta una arquitectura orientada a sistemas distribuidos y utiliza servicios en la nube para su implementación.
+    * _La parte backend de esta solución utiliza una arquitectura REST (orientada a sistemas distribuidos), utiliza servicios como base de datos, express.js y otros middlewares desarrollados por nosotros_
+
+3. La herramienta considera un diseño de procesamiento balanceado consistente con la arquitectura adoptada
+    * _Esta solución hace uso de ejecucion de procesos asíncronos, con la intención de tener un flujo de ejecución contínuo y un procesamiento balanceado. La arquitectura y tecnología utilizada permite la escalabilidad en poder de procesamiento y otros aspectos a través de "Load Balancers" con NGINX._
+
+4. La herramienta implementa su propio protocolo de comunicación entre componentes dentro de un ambiente distribuido.
+    * _Nuestra solución hace uso de distintos tipos de comunicación entre las partes del sistema, la comunicación entre la aplicación de Android (frontend) y el Web API (backend), se hace a través de llamadas HTTP con contenido exclusivamente de tipo JSON, para matener consistencia a través de todas las plataformas a las que se sirve. Además la comunicación en la aplicación backend hace uso de módulos y middlewares con controladores para distintas tareas del sistema, por ejemplo, en la autenticación y autorizacion._
+
+5. La herramienta considera estrategias de seguridad dentro de un ambiente distribuido.
+    * _Esta solución y principalmente en el servicio web API (backend), hace uso de técnicas de autenticación y autorización a través de Json Web Tokens (JWT), el web API también incluye un sistema middleware de permisos que restringe accesos indebidos y permite accesos apropiados. Para datos críticos como contraseñas, se utilizan métodos de encriptación con sal (salting)._
+
 ## Android App
 ./Echando_Raices/
 
