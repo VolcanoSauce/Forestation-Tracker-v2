@@ -3,6 +3,8 @@ const app = express();
 
 require('dotenv').config();
 
+global.__basedir = __dirname;
+
 // Import routes
 const usersRoute = require('./routes/users');
 const areasRoute = require('./routes/areas');
