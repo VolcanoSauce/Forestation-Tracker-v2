@@ -1,7 +1,6 @@
 # Echando Raices v2
 Un proyecto de Fundación que Transforma.
 Esta aplicación consiste el control y registro de areas de forestación llevadas a cabo por la fundación.
-git clone https://github.com/fqtransforma/UABC-2021.1-Flash.git
 
 ## Información General
 Echando Raices es un programa de forestación organizado y dirigido por Funcadión que Transforma. La fundación lleva un registro de las forestaciones realizadas, donde se hicieron, quién es el encargado de la actividad, y el tipo y cantidad de árboles plantados, entre otros datos que relevancia para la fundación.
@@ -14,6 +13,7 @@ Al tratarse de un sistema dividido en BackEnd y FrontEnd, se utilizan varias tec
 El proyecto actualmente está terminado en cuanto al desarrollo, abierto a futuras mejoras o expansión, sin embargo, la aplicación del BackEnd requiere de un servidor para alojarse, ya que durante el desarrollo se utilizó un servidor para pruebas que expira póximamente.
 
 ## Android App
+git clone https://github.com/fqtransforma/UABC-2021.1-Flash.git
 ./Echando_Raices/
 
 ## NodeJS Backend API
