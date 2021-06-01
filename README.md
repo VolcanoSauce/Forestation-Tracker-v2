@@ -1,5 +1,17 @@
 # Echando Raices v2
+Un proyecto de Fundación que Transforma.
+Esta aplicación consiste el control y registro de areas de forestación llevadas a cabo por la fundación.
 git clone https://github.com/fqtransforma/UABC-2021.1-Flash.git
+
+## Información General
+Echando Raices es un programa de forestación organizado y dirigido por Funcadión que Transforma. La fundación lleva un registro de las forestaciones realizadas, donde se hicieron, quién es el encargado de la actividad, y el tipo y cantidad de árboles plantados, entre otros datos que relevancia para la fundación.
+Para facilitar esta labor, los estudiantes de la materia de Aplicaciones Distribuidas, de la FCQI/UABC hemos desarrollado una aplicación para dispositivos Android por medio de la cual se puede visualizar y llevar el control de esta información del programa.
+
+## Tecnologías 
+Al tratarse de un sistema dividido en BackEnd y FrontEnd, se utilizan varias tecnologías. De entre las usadas por el BackEnd tenemos el uso de MySQL para la base de datos, ejecutada por Express.js (JavaScript), así como algunos Middleware desarrollados por nosotros. Del lado del FrontEnd, la aplicación se desarrolló para dispositivos Android, por lo que está programada en Java y XML. A su vez, se hace uso de la API de Google Maps para el geoposicionamiento de las áreas de forestación almacenadas en la base datos.
+
+## Estado
+El proyecto actualmente está terminado en cuanto al desarrollo, abierto a futuras mejoras o expansión, sin embargo, la aplicación del BackEnd requiere de un servidor para alojarse, ya que durante el desarrollo se utilizó un servidor para pruebas que expira póximamente.
 
 ## Android App
 ./Echando_Raices/
@@ -69,4 +81,3 @@ http://ec2-54-227-98-150.compute-1.amazonaws.com:3600/
 
 5. La herramienta considera estrategias de seguridad dentro de un ambiente distribuido.
     * _Esta solución y principalmente en el servicio web API (backend), hace uso de técnicas de autenticación y autorización a través de Json Web Tokens (JWT), el web API también incluye un sistema middleware de permisos que restringe accesos indebidos y permite accesos apropiados. Para datos críticos como contraseñas, se utilizan métodos de encriptación con sal (salting)._
-
