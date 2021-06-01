@@ -14,6 +14,7 @@ El proyecto actualmente está terminado en cuanto al desarrollo, abierto a futur
 
 ## Android App
 git clone https://github.com/fqtransforma/UABC-2021.1-Flash.git
+
 ./Echando_Raices/
 
 ## NodeJS Backend API
