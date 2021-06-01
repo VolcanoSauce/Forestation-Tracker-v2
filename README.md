@@ -54,9 +54,6 @@ npm install
 
 npm start (.env file required)
 
-API @: 
-http://ec2-54-227-98-150.compute-1.amazonaws.com:3600/
-
 ### Users Route
 * Get all Users                     ->  _GET /users_
 * Get specified User by ID          ->  _GET /users/:userId_
