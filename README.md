@@ -1,5 +1,18 @@
 # Echando Raices v2
+Un proyecto de Fundación que Transforma.
+Esta aplicación consiste el control y registro de areas de forestación llevadas a cabo por la fundación.
 git clone https://github.com/fqtransforma/UABC-2021.1-Flash.git
+
+## Información General
+Echando Raices es un programa de forestación organizado y dirigido por Funcadión que Transforma. La fundación lleva un registro de las forestaciones realizadas, donde se hicieron, quién es el encargado de la actividad, y el tipo y cantidad de árboles plantados, entre otros datos que relevancia para la fundación.
+Para facilitar esta labor, los estudiantes de la materia de Aplicaciones Distribuidas, de la FCQI/UABC hemos desarrollado una aplicación para dispositivos Android por medio de la cual se puede visualizar y llevar el control de esta información del programa.
+
+## Tecnologías 
+Al tratarse de un sistema dividido en BackEnd y FrontEnd, se utilizan varias tecnologías. De entre las usadas por el BackEnd tenemos el uso de MySQL para la base de datos, ejecutada por Express.js (JavaScript), así como algunos Middleware desarrollados por nosotros. Del lado del FrontEnd, la aplicación se desarrolló para dispositivos Android, por lo que está programada en Java y XML. A su vez, se hace uso de la API de Google Maps para el geoposicionamiento de las áreas de forestación almacenadas en la base datos.
+
+## Estado
+El proyecto actualmente está terminado en cuanto al desarrollo, abierto a futuras mejoras o expansión, sin embargo, la aplicación del BackEnd requiere de un servidor para alojarse, ya que durante el desarrollo se utilizó un servidor para pruebas que expira póximamente.
+
 ## Android App
 ./Echando_Raices/
 
@@ -52,3 +65,19 @@ http://ec2-54-227-98-150.compute-1.amazonaws.com:3600/
 * Post new Plant Type               -> _POST /forestations/props/plant-types_
 * Update Forestation by ID          -> _PATCH /forestations/:forestationId_
 * Delete Forestation by ID          -> _DELETE /forestations/:areforestationId_
+
+## Rubrica Caracteristicas Conceptuales de la Herramienta
+1. La herramienta refleja un análisis consistente con la lógica el problema propuesto e implementa un diseño orientado a sistemas distribuidos consistente con la lógica de la solución propuesta
+    * _El sistema es una solucion al problema propuesto, implementando un diseño orientado a sistemas distribuidos, ya que es una solucion de partes separadas trabajando junto, unas de estas partes siendo: rutas, controladores, middlewares, etc. El backend del servicio web API utilizando el Patron REST de arquitectura, que permite gran escalabilidad, de tal forma que puede servir a multiples frontends en diferentes plataformas y dispositivos._
+
+2. La herramienta adopta una arquitectura orientada a sistemas distribuidos y utiliza servicios en la nube para su implementación.
+    * _La parte backend de esta solución utiliza una arquitectura REST (orientada a sistemas distribuidos), utiliza servicios como base de datos, express.js y otros middlewares desarrollados por nosotros_
+
+3. La herramienta considera un diseño de procesamiento balanceado consistente con la arquitectura adoptada
+    * _Esta solución hace uso de ejecucion de procesos asíncronos, con la intención de tener un flujo de ejecución contínuo y un procesamiento balanceado. La arquitectura y tecnología utilizada permite la escalabilidad en poder de procesamiento y otros aspectos a través de "Load Balancers" con NGINX._
+
+4. La herramienta implementa su propio protocolo de comunicación entre componentes dentro de un ambiente distribuido.
+    * _Nuestra solución hace uso de distintos tipos de comunicación entre las partes del sistema, la comunicación entre la aplicación de Android (frontend) y el Web API (backend), se hace a través de llamadas HTTP con contenido exclusivamente de tipo JSON, para matener consistencia a través de todas las plataformas a las que se sirve. Además la comunicación en la aplicación backend hace uso de módulos y middlewares con controladores para distintas tareas del sistema, por ejemplo, en la autenticación y autorizacion._
+
+5. La herramienta considera estrategias de seguridad dentro de un ambiente distribuido.
+    * _Esta solución y principalmente en el servicio web API (backend), hace uso de técnicas de autenticación y autorización a través de Json Web Tokens (JWT), el web API también incluye un sistema middleware de permisos que restringe accesos indebidos y permite accesos apropiados. Para datos críticos como contraseñas, se utilizan métodos de encriptación con sal (salting)._
